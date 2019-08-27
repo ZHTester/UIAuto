@@ -39,6 +39,7 @@ class ActionMe:
         输入值方法
         :return:
         """
+        print(len(args))
         value = str(args[0]).split(',')
         value1 = int(value[0])
         value2 = value[1]
@@ -70,18 +71,29 @@ class ActionMe:
         截图方法
         :return:
         """
-        value = str(args[0]).split(',')
-        value1 = int(value[0])
-        imageName = str(self.agetdata.get_caseName(value1))
-        self.driver.get_screenshot_as_file(screen_images_success+imageName+'.png')
+        if ',' in  str(args[0]):
+            value = str(args[0]).split(',')
+            value1 = int(value[0])
+            imageName = str(self.agetdata.get_caseName(value1))
+            self.driver.get_screenshot_as_file(screen_images_success + imageName + '.png')
+        else:
+            imageName = str(self.agetdata.get_caseName(int(args[0])))
+            self.driver.get_screenshot_as_file(screen_images_success + imageName + '.png')
 
     def ScreenShotError(self, *args):
         """
         错误异常截图方法
         :return:
         """
-        imageName = str(self.agetdata.get_caseName(int(args[0])))
-        self.driver.get_screenshot_as_file(screen_images_error+imageName+'error.png')
+        if ',' in  str(args[0]):
+            value = str(args[0]).split(',')
+            value1 = int(value[0])
+            imageName = str(self.agetdata.get_caseName(value1))
+            self.driver.get_screenshot_as_file(screen_images_error + imageName + '.png')
+        else:
+            imageName = str(self.agetdata.get_caseName(int(args[0])))
+            self.driver.get_screenshot_as_file(screen_images_error + imageName + '.png')
+
 
     def GetiPhoneCode(self,*args):
         """

@@ -39,6 +39,7 @@ class RunMethod:
                 # 自动化测试用例集执行
                 excute_method = getattr(action_method, handle_step)
                 excute_method(handle_value)
+                time.sleep(1)
                 action_method.ScreenShot(handle_value)
 
                 # 判断预期元素在当前页面是否存在
@@ -51,11 +52,12 @@ class RunMethod:
                         self.data.write_value(i, "fail")
                     # 获取成功失败的统计个数 p=pass个数  f = 失败个数
                     p= self.data.getTotal(i)
-                    p = str(p)
                     print(p)
                     print(type(p))
+
             except:
                 action_method.ScreenShotError(handle_value)
+
         message = '娱乐端app(ios)自动化测试报告\n\n以下就是ui自动化测试报告\n成功测试用个数为:'+\
                   '\n失败测试用例个数为:\n\n 附件为本次测试用例具体执行结果'
         sendemail.Email_UiTest(message)
