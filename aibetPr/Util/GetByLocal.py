@@ -8,32 +8,41 @@
 
 获取元素定位方式  封装
 """
-from aibetPr.Util.OperaExcel import OpExcel
 from aibetPr.KeyWord.GetData import Getda
+from aibetPr.Config.setting import screen_images_error
 
 class GetByLo:
     def __init__(self, driver):
         self.driver = driver
+        self.getE = Getda()
 
-    def get_element(self,row = None):
+    def ScreenShotError(self,row):
+        imageName = str(self.getE.get_caseName(row))
+        self.driver.get_screenshot_as_file(screen_images_error + imageName + 'error.png')
+
+    def get_element(self, row = None):
         """
         查找元素封装
         :return:
         """
-        getE = Getda()
-        local = getE.get_element_key(row)
+
+        local = self.getE.get_element_key(row)
         by =  local.split(">")[0]
         by_local = local.split('>')[1]
-        if by == 'xpath':
-            return self.driver.find_element_by_xpath(by_local)
-        elif by == 'classname':
-            self.driver.find_element_by_class_name(by_local)
-        elif by == 'css':
-            self.driver.find_element_by_css_selector(by_local)
-        elif by == 'id':
-            self.driver.find_element_by_id(by_local)
-        else:
-            return None,"元素未找到"
+        try:
+            if by == 'xpath':
+                return self.driver.find_element_by_xpath(by_local)
+            elif by == 'classname':
+                return self.driver.find_element_by_class_name(by_local)
+            elif by == 'css':
+                return self.driver.find_element_by_css_selector(by_local)
+            elif by == 'id':
+                return self.driver.find_element_by_id(by_local)
+            else:
+                return None
+        except:
+            self.ScreenShotError(row)  # 错误截图
+
 
 if __name__ == '__main__':
     pass

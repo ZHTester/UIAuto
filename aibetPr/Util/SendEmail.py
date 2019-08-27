@@ -8,38 +8,52 @@
 
 发送 SendEmail
 """
-
+import os
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from aibetPr.Config.setting import *
+
 
 class SEmail:
-    def Email_UiTest(self):
-        mail_host="smtp.gmail.com"  #设置服务器
-        mail_user="Function@seektopser.com"    #用户名
-        mail_pass="function@123"   # 密码
-        port = "465"
+    def Email_UiTest(self, send_message):
+        # 相关变量读取配置文件
+        mail_host= MAIL_HOST
+        mail_user= MAIL_USER
+        mail_pass= MAIL_PASS
+        port = PORT
+        sender = SENDER
+        receivers = RECEIVERS
 
-        sender = 'Function@seektopser.com'
-        receivers = ['15928737095@163.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
-
-        # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
-        message = MIMEText('Python 邮件发送测试...', 'plain', 'utf-8')
-        message['From'] = Header("菜鸟教程", 'utf-8')  # 发送者
-        message['To'] = Header("15928737095@163.com", 'utf-8')  # 接收者
-
-        subject = 'Python SMTP 邮件测试'
+        # 定义邮件格式
+        message = MIMEMultipart()
+        message['From'] = Header(sender)
+        message['To'] = Header(','.join(receivers))
+        subject = SUBJECT
         message['Subject'] = Header(subject, 'utf-8')
+
+        # 构造邮件主题内容
+        text = send_message
+        body = MIMEText(text, _subtype="html", _charset="utf-8")
+        message.attach(body)
+
+        att1 = MIMEText(open(report_file, 'rb').read(), 'base32', 'utf-8')
+        att1["Content-Type"] = 'application/octet-stream'
+        att1.add_header('Content-Disposition', 'attachment', filename=('gbk', '', os.path.basename(report_file)))
+        att1["Content-Disposition"] = 'attachment; filename="aibetUIAuto.xls"'
+        message.attach(att1)
 
         try:
             smtpObj = smtplib.SMTP_SSL(mail_host,port)
-            smtpObj.login(mail_user,mail_pass)
-            smtpObj.sendmail(sender, receivers, message.as_string())
-            smtpObj.quit()
             print ("邮件发送成功")
         except smtplib.SMTPException:
-            print('"Error: 无法发送邮件"')
+            smtpObj = smtplib.SMTP()
+            smtpObj.connect(mail_host, port)
+        smtpObj.login(mail_user, mail_pass)
+        smtpObj.sendmail(sender, receivers, message.as_string())
+        smtpObj.quit()
 
 if __name__ == '__main__':
     send = SEmail()
-    send.Email_UiTest()
+    send.Email_UiTest("娱乐端app(ios)自动化测试报告\n以下就是ui自动化测试报告")

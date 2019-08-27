@@ -13,7 +13,7 @@ import time
 from aibetPr.Base.BaseDriver import BaDriver
 from aibetPr.Util.GetByLocal import GetByLo
 from aibetPr.KeyWord.GetData import Getda
-
+from aibetPr.Config.setting import screen_images_error, screen_images_success
 
 
 class ActionMe:
@@ -22,7 +22,17 @@ class ActionMe:
         self.driver = Basedriver.get_ios_driver()
         self.agetbylo = GetByLo(self.driver)
         self.agetdata = Getda()
-        self.rows = self.agetdata.get_rowi()
+
+    def GetElement(self, *args):
+        """
+        判断元素是否存在
+        :param args:
+        :return:
+        """
+        expect_element = self.agetdata.get_expect_element(int(args[0]))  # 获取预期元素
+        if expect_element is None:
+            return None
+        return expect_element
 
     def Input(self,*args):
         """
@@ -47,13 +57,31 @@ class ActionMe:
             return '', "元素没找到"
         element.click()
 
+    def Yingc(self, *args):
+        """
+        IOS隐藏键盘
+        :param args:
+        :return:
+        """
+        self.driver.find_element_by_accessibility_id('Toolbar Done Button').click()
+
     def ScreenShot(self, *args):
         """
         截图方法
         :return:
         """
-        imageName = str(self.agetdata.get_caseName(args[0]))
-        self.driver.get_screenshot_as_file(r'../ScreenImages/'+imageName+'.png')
+        value = str(args[0]).split(',')
+        value1 = int(value[0])
+        imageName = str(self.agetdata.get_caseName(value1))
+        self.driver.get_screenshot_as_file(screen_images_success+imageName+'.png')
+
+    def ScreenShotError(self, *args):
+        """
+        错误异常截图方法
+        :return:
+        """
+        imageName = str(self.agetdata.get_caseName(int(args[0])))
+        self.driver.get_screenshot_as_file(screen_images_error+imageName+'error.png')
 
     def GetiPhoneCode(self,*args):
         """
@@ -71,15 +99,7 @@ class ActionMe:
         """
         pass
 
-    def Ios_hide_keyboard(self,*args):
-        """
-        IOS隐藏键盘
-        :param args:
-        :return:
-        """
-        self.driver.find_element_by_accessibility_id('Toolbar Done Button').click()
-
-    def ios_SwipeRight(self,*args):
+    def ios_SwipeRight(self):
         """
         ios滑动 右边
         :return:

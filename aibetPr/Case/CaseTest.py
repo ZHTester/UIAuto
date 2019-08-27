@@ -36,14 +36,12 @@ class Ioscase(unittest.TestCase):
         self.log.write_data()
         time.sleep(5)
         print('''''这是第一步''')
-        self.getbylo.get_element.click()
+        self.getbylo.get_element(1).click()
         print('''''执行完成这是第一步''')
         time.sleep(10)
         print('''''这是第二步''')
-        self.getbylo.get_element.click()
+        self.getbylo.get_element(2).click()
         print('''''执行完成这是第二步''')
-        pass
-
 
     def tearDown(self):
         pass

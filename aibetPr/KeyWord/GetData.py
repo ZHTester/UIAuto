@@ -52,7 +52,7 @@ class Getda:
 
     def get_handle_value(self, row):
         """
-        对应Excel ---> 操作值
+        对应Excel ---> 操作值 getByLocal
         获取操作元素的值
         """
         handle_value = self.opera_excel.get_cell(row, 5)
@@ -88,7 +88,7 @@ class Getda:
         :param row:
         :return:
         """
-        is_run = self.opera_excel.get_cell(row, 10)
+        is_run = self.opera_excel.get_cell(row, 9)
         if is_run == 'yes':
             return True
         else:
@@ -105,10 +105,21 @@ class Getda:
         """
         self.opera_excel.write_value(row, value)
 
-    def get_rowi(self):
+    def getTotal(self,row):
+        """
+        计算一列数据中的 pass和fail的个数
+        :return:
+        """
         lines = self.get_case_lines()
+        p = 0   # 成功
+        f = 0   # 失败
         for i in range(1,lines):
-            return i
+            run_result = self.opera_excel.get_cell(row, 8)
+            if run_result == 'pass':
+                p+= 1
+            elif run_result == 'fail':
+                f+= 1
+            return p,f
 
 
 

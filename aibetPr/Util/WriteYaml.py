@@ -9,6 +9,7 @@
 操作Yaml文件 存储appium启动命令
 """
 import yaml
+from aibetPr.Config.setting import yam_file
 
 
 class WriteYamlCommand:
@@ -16,7 +17,7 @@ class WriteYamlCommand:
         """
         加载yaml数据
         """
-        with open("../Config/aibet.yaml") as fr:
+        with open(yam_file) as fr:
             data = yaml.load(fr, Loader=yaml.FullLoader)
         return data
 

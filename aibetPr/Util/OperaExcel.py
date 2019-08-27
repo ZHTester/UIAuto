@@ -10,12 +10,13 @@
 """
 import xlrd
 from xlutils.copy import copy
+from aibetPr.Config.setting import report_file
 
 
 class OpExcel:
     def __init__(self, file_path=None, i=None):
         if file_path is None:
-            self.file_path = '../Config/Case.xls'
+            self.file_path = report_file
         else:
             self.file_path = file_path
         if i is None:
@@ -65,7 +66,7 @@ class OpExcel:
         read_value = self.excel
         write_data = copy(read_value)
         write_save = write_data.get_sheet(0)
-        write_save.write(row, 9, value)
+        write_save.write(row, 8, value)
         write_data.save(self.file_path)
 
 
