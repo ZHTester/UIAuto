@@ -10,11 +10,11 @@
 """
 import unittest
 import time
-from aibetPr.Base.BaseDriver import BaDriver
-from aibetPr.Util.AppiumServer import Serappium
-from aibetPr.Util.GetByLocal import GetByLo
-from aibetPr.Log.LogData import LogConfig
-from aibetPr.KeyWord.ActionMethod import ActionMe
+from AutioIOS.Base.BaseDriver import BaDriver
+from AutioIOS.Util.AppiumServer import Serappium
+from AutioIOS.Util.GetByLocal import GetByLo
+from AutioIOS.Log.LogData import LogConfig
+from AutioIOS.KeyWord.ActionMethod import ActionMe
 
 
 class Ioscase(unittest.TestCase):

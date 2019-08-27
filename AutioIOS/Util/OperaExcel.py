@@ -10,7 +10,7 @@
 """
 import xlrd
 from xlutils.copy import copy
-from aibetPr.Config.setting import report_file
+from AutioIOS.Config.aibet_setting import report_file
 
 
 class OpExcel:

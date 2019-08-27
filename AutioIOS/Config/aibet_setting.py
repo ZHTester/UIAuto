@@ -3,14 +3,14 @@
 """
 # @Time    : 2019-08-27 14:32
 # @Author  : Function
-# @FileName    : setting.py
+# @FileName    : aibet_setting.py
 # @Software: PyCharm
 """
 # 其余文件存放路径
-report_file = '../Config/Case.xls'  # 测试用例存放路径
+report_file = '../Config/aibet_Case.xls'  # 测试用例存放路径
 yam_file = '../Config/aibet.yaml'  # yam 命令生成路径
-screen_images_error = r'../ImageError/'  # 错误图片存储路径
-screen_images_success = r'../ImageSuccess/'
+screen_images_error = r'../aibetImage/ImageError/'  # 错误图片存储路径
+screen_images_success = r'../aibetImage/ImageSuccess/'
 
 # Email相关变量
 MAIL_HOST = "secure.emailsrvr.com"  # 设置服务器

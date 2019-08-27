@@ -8,8 +8,8 @@
 
 获取元素定位方式  封装
 """
-from aibetPr.KeyWord.GetData import Getda
-from aibetPr.Config.setting import screen_images_error
+from AutioIOS.KeyWord.GetData import Getda
+from AutioIOS.Config.aibet_setting import screen_images_error
 
 class GetByLo:
     def __init__(self, driver):
@@ -25,7 +25,6 @@ class GetByLo:
         查找元素封装
         :return:
         """
-
         local = self.getE.get_element_key(row)
         by =  local.split(">")[0]
         by_local = local.split('>')[1]

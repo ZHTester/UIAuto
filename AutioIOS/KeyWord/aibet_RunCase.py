@@ -3,17 +3,17 @@
 """
 # @Time    : 2019-08-21 10:43
 # @Author  : Function
-# @FileName    : RunCase.py
+# @FileName    : aibet_RunCase.py
 # @Software: PyCharm
 
 关键字视图方法调用
 """
 import time
 
-from aibetPr.KeyWord.GetData import Getda
-from aibetPr.Util.AppiumServer import Serappium
-from aibetPr.KeyWord.ActionMethod import ActionMe
-from aibetPr.Util.SendEmail import SEmail
+from AutioIOS.KeyWord.GetData import Getda
+from AutioIOS.Util.AppiumServer import Serappium
+from AutioIOS.KeyWord.ActionMethod import ActionMe
+from AutioIOS.Util.SendEmail import SEmail
 
 
 class RunMethod:
