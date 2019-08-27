@@ -10,10 +10,10 @@
 """
 import time
 
-from AutioIOS.KeyWord.GetData import Getda
-from AutioIOS.Util.AppiumServer import Serappium
-from AutioIOS.KeyWord.ActionMethod import ActionMe
-from AutioIOS.Util.SendEmail import SEmail
+from AutoIOS.KeyWord.GetData import Getda
+from AutoIOS.Util.AppiumServer import Serappium
+from AutoIOS.KeyWord.ActionMethod import ActionMe
+from AutoIOS.Util.SendEmail import SEmail
 
 
 class RunMethod:

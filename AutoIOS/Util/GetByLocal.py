@@ -8,8 +8,8 @@
 
 获取元素定位方式  封装
 """
-from AutioIOS.KeyWord.GetData import Getda
-from AutioIOS.Config.aibet_setting import screen_images_error
+from AutoIOS.KeyWord.GetData import Getda
+from AutoIOS.Config.aibet_setting import screen_images_error
 
 class GetByLo:
     def __init__(self, driver):

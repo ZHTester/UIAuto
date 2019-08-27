@@ -13,7 +13,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
-from AutioIOS.Config.aibet_setting import *
+from AutoIOS.Config.aibet_setting import *
 
 
 class SEmail:

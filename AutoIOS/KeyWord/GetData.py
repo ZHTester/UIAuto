@@ -8,7 +8,7 @@
 
 获取数据
 """
-from AutioIOS.Util.OperaExcel import OpExcel
+from AutoIOS.Util.OperaExcel import OpExcel
 
 class Getda:
     def __init__(self):

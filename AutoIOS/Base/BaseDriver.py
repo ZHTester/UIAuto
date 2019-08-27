@@ -12,7 +12,7 @@ import warnings
 from appium import webdriver
 import time
 
-from AutioIOS.Util.WriteYaml import WriteYamlCommand
+from AutoIOS.Util.WriteYaml import WriteYamlCommand
 
 
 class BaDriver:

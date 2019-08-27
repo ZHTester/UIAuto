@@ -11,7 +11,7 @@
 生成端口 - 生成我们可用的端口
 lsof -i
 """
-from AutioIOS.Util.Osterminal import OsTerminal
+from AutoIOS.Util.Osterminal import OsTerminal
 import os
 
 

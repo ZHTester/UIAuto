@@ -11,9 +11,9 @@ Appium 服务端
 import multiprocessing
 import time
 
-from AutioIOS.Util.Osterminal import OsTerminal
-from AutioIOS.Util.WriteYaml import WriteYamlCommand
-from AutioIOS.Util.CheckPort import Cport
+from AutoIOS.Util.Osterminal import OsTerminal
+from AutoIOS.Util.WriteYaml import WriteYamlCommand
+from AutoIOS.Util.CheckPort import Cport
 
 
 class Serappium:

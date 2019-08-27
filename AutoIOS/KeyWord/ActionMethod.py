@@ -10,10 +10,10 @@
 """
 import time
 
-from AutioIOS.Base.BaseDriver import BaDriver
-from AutioIOS.Util.GetByLocal import GetByLo
-from AutioIOS.KeyWord.GetData import Getda
-from AutioIOS.Config.aibet_setting import screen_images_error, screen_images_success
+from AutoIOS.Base.BaseDriver import BaDriver
+from AutoIOS.Util.GetByLocal import GetByLo
+from AutoIOS.KeyWord.GetData import Getda
+from AutoIOS.Config.aibet_setting import screen_images_error, screen_images_success
 
 
 class ActionMe:
