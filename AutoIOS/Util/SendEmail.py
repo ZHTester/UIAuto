@@ -8,12 +8,13 @@
 
 发送 SendEmail
 """
-import os
+
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from AutoIOS.Config.aibet_setting import *
+from AutoIOS.Util.ImageZip import annex
 
 
 class SEmail:
@@ -38,11 +39,14 @@ class SEmail:
         body = MIMEText(text, _subtype="html", _charset="utf-8")
         message.attach(body)
 
-        att1 = MIMEText(open(report_file, 'rb').read(), 'base32', 'utf-8')
-        att1["Content-Type"] = 'application/octet-stream'
-        att1.add_header('Content-Disposition', 'attachment', filename=('gbk', '', os.path.basename(report_file)))
-        att1["Content-Disposition"] = 'attachment; filename="aibetUIAuto.xls"'
+        # 上传文件附件 测试case用例集合
+        att1 = MIMEText(open(report_file, 'rb').read(), 'base64', 'Unicode')
+        att1["Content-Disposition"] = 'attachment; filename="aibet_Case.xls"'
         message.attach(att1)
+
+        # 上传图片压缩文件
+        message.attach(annex(images_success))
+        message.attach(annex(images_error))
 
         try:
             smtpObj = smtplib.SMTP_SSL(mail_host,port)

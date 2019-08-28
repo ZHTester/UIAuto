@@ -14,6 +14,8 @@ from AutoIOS.KeyWord.GetData import Getda
 from AutoIOS.Util.AppiumServer import Serappium
 from AutoIOS.KeyWord.ActionMethod import ActionMe
 from AutoIOS.Util.SendEmail import SEmail
+from AutoIOS.Util.ImageZip import make_zip
+from AutoIOS.Config.aibet_setting import *
 
 
 class RunMethod:
@@ -52,11 +54,12 @@ class RunMethod:
                         self.data.write_value(i, "fail")
                     # 获取成功失败的统计个数 p=pass个数  f = 失败个数
                     p= self.data.getTotal(i)
-                    print(p)
-                    print(type(p))
-
             except:
                 action_method.ScreenShotError(handle_value)
+
+        # 打印向光成功失败的图片压缩文件
+        make_zip(screen_images_success,images_success) # 打印成功图片成zip文件
+        make_zip(screen_images_error,images_error)
 
         message = '娱乐端app(ios)自动化测试报告\n\n以下就是ui自动化测试报告\n成功测试用个数为:'+\
                   '\n失败测试用例个数为:\n\n 附件为本次测试用例具体执行结果'

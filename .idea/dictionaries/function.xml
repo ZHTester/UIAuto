@@ -6,18 +6,23 @@
       <w>agetdata</w>
       <w>aibet</w>
       <w>appium</w>
+      <w>arcname</w>
       <w>autio</w>
       <w>badriver</w>
       <w>basedriver</w>
       <w>bostport</w>
       <w>caselines</w>
       <w>cport</w>
+      <w>ctype</w>
       <w>devicename</w>
       <w>devicesli</w>
+      <w>dirnames</w>
+      <w>dirpath</w>
       <w>emailsrvr</w>
       <w>excle</w>
       <w>excute</w>
       <w>findstr</w>
+      <w>fpath</w>
       <w>getbylo</w>
       <w>getbylocal</w>
       <w>getda</w>
@@ -32,6 +37,7 @@
       <w>numrow</w>
       <w>opexcel</w>
       <w>osterminal</w>
+      <w>pathfile</w>
       <w>rowi</w>
       <w>rowsi</w>
       <w>screenshot</w>
@@ -42,11 +48,15 @@
       <w>smtp</w>
       <w>smtplib</w>
       <w>smtpserver</w>
+      <w>startdir</w>
       <w>stesrminal</w>
       <w>swipedown</w>
       <w>tasklist</w>
       <w>tost</w>
+      <w>xlsx</w>
       <w>yingc</w>
+      <w>ziii</w>
+      <w>zipf</w>
     </words>
   </dictionary>
 </component>
