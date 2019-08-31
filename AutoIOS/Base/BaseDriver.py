@@ -13,6 +13,7 @@ from appium import webdriver
 import time
 
 from AutoIOS.Util.WriteYaml import WriteYamlCommand
+from AutoIOS.Config.aibet_setting import app_name
 
 
 class BaDriver:
@@ -22,15 +23,15 @@ class BaDriver:
         ios Driver
         :return:
         """
-        # warnings.simplefilter("ignore", ResourceWarning)  # 不打印系统报错
         write_file = WriteYamlCommand()
         port = write_file.get_value('port')
         capabilities = {
             "automationName": "XCUITest",
             "platformName": "iOS",
+            'newCommandTimeout': "2000",
             "platformVersion": "12.4",
             "deviceName": "iPhone Xʀ",
-            "app": "/Users/function/Downloads/UIAutioPage/aibet.app"
+            "app": "/Users/function/Downloads/UIAutioPage/"+app_name
                                     }
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver

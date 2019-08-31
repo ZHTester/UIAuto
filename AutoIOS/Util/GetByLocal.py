@@ -8,6 +8,8 @@
 
 获取元素定位方式  封装
 """
+from selenium.common.exceptions import NoSuchElementException
+
 from AutoIOS.KeyWord.GetData import Getda
 from AutoIOS.Config.aibet_setting import screen_images_error
 
@@ -36,10 +38,10 @@ class GetByLo:
             elif by == 'css':
                 return self.driver.find_element_by_css_selector(by_local)
             elif by == 'id':
-                return self.driver.find_element_by_id(by_local)
+                return self.driver.find_element_by_accessibility_id(by_local)
             else:
                 return None
-        except:
+        except NoSuchElementException:
             self.ScreenShotError(row)  # 错误截图
 
 

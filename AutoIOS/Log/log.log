@@ -194,3 +194,7 @@
 2019-08-23 14:42:31,007 - root - WARNING - This is a warning log.
 2019-08-23 14:42:31,008 - root - ERROR - This is a error log.
 2019-08-23 14:42:31,008 - root - CRITICAL - This is a critical log.
+2019-08-28 15:57:14,583 - root - WARNING - message
+2019-08-28 15:57:14,584 - root - WARNING - This is a warning log.
+2019-08-28 15:57:14,584 - root - ERROR - This is a error log.
+2019-08-28 15:57:14,584 - root - CRITICAL - This is a critical log.

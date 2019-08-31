@@ -37,7 +37,7 @@ class Getda:
         对应Excel ---> 步骤
         获取操作步骤里面的操作方法名字(send_key<->OR<->click)
         """
-        method_name = self.opera_excel.get_cell(row, 3)
+        method_name = self.opera_excel.get_cell(row, 2)
         return method_name
 
     def get_element_key(self, row):
@@ -45,7 +45,7 @@ class Getda:
         对应Excel ---> 元素
         获取元素
         """
-        element_key = self.opera_excel.get_cell(row, 4)
+        element_key = self.opera_excel.get_cell(row, 3)
         if element_key == '':
             return None
         return element_key
@@ -55,7 +55,7 @@ class Getda:
         对应Excel ---> 操作值 getByLocal
         获取操作元素的值
         """
-        handle_value = self.opera_excel.get_cell(row, 5)
+        handle_value = self.opera_excel.get_cell(row, 4)
         if handle_value == '':
             return None
         return handle_value
@@ -66,7 +66,7 @@ class Getda:
         获取预期结果元素element
 
         """
-        expect_element = self.opera_excel.get_cell(row, 6)
+        expect_element = self.opera_excel.get_cell(row, 5)
         if expect_element == '':
             return None
         return expect_element
@@ -77,7 +77,7 @@ class Getda:
         :param row:
         :return:
         """
-        expect_step = self.opera_excel.get_cell(row, 7)
+        expect_step = self.opera_excel.get_cell(row, 6)
         if expect_step == "":
             return None
         return expect_step
@@ -104,25 +104,6 @@ class Getda:
         :return:
         """
         self.opera_excel.write_value(row, value)
-
-    def getTotal(self,row):
-        """
-        计算一列数据中的 pass和fail的个数
-        :return:
-        """
-        lines = self.get_case_lines()
-        p = 0   # 成功
-        f = 0   # 失败
-        for i in range(1,lines):
-            run_result = self.opera_excel.get_cell(row, 8)
-            if run_result == 'pass':
-                p+= 1
-            elif run_result == 'fail':
-                f+= 1
-            return p,f
-
-
-
 
 
 if __name__ == '__main__':

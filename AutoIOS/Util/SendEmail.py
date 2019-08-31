@@ -15,10 +15,18 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from AutoIOS.Config.aibet_setting import *
 from AutoIOS.Util.ImageZip import annex
+from AutoIOS.Util.OtherFunction import Zip_size
 
 
 class SEmail:
-    def Email_UiTest(self, send_message):
+    @staticmethod
+    def Email_UiTest(send_message, out_file, out_filename):
+        """
+        :param send_message:  邮件主题信息
+        :param out_file:  发送文件路径
+        :param out_filename:  发送文件名称
+        :return:
+        """
         # 相关变量读取配置文件
         mail_host= MAIL_HOST
         mail_user= MAIL_USER
@@ -40,14 +48,17 @@ class SEmail:
         message.attach(body)
 
         # 上传文件附件 测试case用例集合
-        att1 = MIMEText(open(report_file, 'rb').read(), 'base64', 'Unicode')
-        att1["Content-Disposition"] = 'attachment; filename="aibet_Case.xls"'
+        att1 = MIMEText(open(out_file, 'rb').read(), 'base64', 'Unicode')
+        att1["Content-Disposition"] = 'attachment; filename='+out_filename
         message.attach(att1)
 
         # 上传图片压缩文件
-        message.attach(annex(images_success))
-        message.attach(annex(images_error))
+        if Zip_size(images_success) is not 0:
+            message.attach(annex(images_success))
+        if Zip_size(images_error) is not 0:
+            message.attach(annex(images_error))
 
+        # 连接邮箱Server
         try:
             smtpObj = smtplib.SMTP_SSL(mail_host,port)
             print ("邮件发送成功")
@@ -60,4 +71,3 @@ class SEmail:
 
 if __name__ == '__main__':
     send = SEmail()
-    send.Email_UiTest("娱乐端app(ios)自动化测试报告\n以下就是ui自动化测试报告")

@@ -41,6 +41,7 @@ class Ioscase(unittest.TestCase):
         time.sleep(10)
         print('''''这是第二步''')
         self.getbylo.get_element(2).click()
+        print(self.driver.current_context)
         print('''''执行完成这是第二步''')
 
     def tearDown(self):

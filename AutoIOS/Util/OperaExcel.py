@@ -8,8 +8,10 @@
 
 相关Case数据存储到Excel中便于数据和Case的相关维护
 """
+import time
 import xlrd
 from xlutils.copy import copy
+
 from AutoIOS.Config.aibet_setting import report_file
 
 
@@ -63,20 +65,20 @@ class OpExcel:
         :param value: 写入值
         :return:
         """
-        read_value = self.excel
-        write_data = copy(read_value)
-        write_save = write_data.get_sheet(0)
-        write_save.write(row, 8, value)
+        read_data = xlrd.open_workbook(self.file_path)
+        write_data = copy(read_data)
+        sheet_data = write_data.get_sheet(0)
+        sheet_data.write(row, 7, value)
         write_data.save(self.file_path)
-
 
 if __name__ == '__main__':
     p = OpExcel()
     s = p.get_cell(1, 0)  # 获取单元格相关内容
-    p.write_value(5, '这是我写入的内容')
-    t = p.get_lines()
-    print(t)
-    print(s)
+    for i in range(18,200):
+        print(i)
+        p.write_value(i, '这是我写入的内容')
+        print("写入成功")
+
 
 
 

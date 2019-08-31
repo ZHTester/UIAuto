@@ -9,6 +9,8 @@
 关键字模型方法类
 """
 import time
+from appium.webdriver.common.touch_action import TouchAction
+from selenium.common.exceptions import NoSuchElementException
 
 from AutoIOS.Base.BaseDriver import BaDriver
 from AutoIOS.Util.GetByLocal import GetByLo
@@ -29,18 +31,70 @@ class ActionMe:
         :param args:
         :return:
         """
-        expect_element = self.agetdata.get_expect_element(int(args[0]))  # 获取预期元素
-        if expect_element is None:
-            return None
-        return expect_element
+        flag = None
+        if '>' in str(args[0]):
+            value = str(args[0]).split('>')
+            value1 = int(value[0])
+            expect_element = self.agetdata.get_expect_element(value1)  # 获取预期元素
+        else:
+            expect_element = self.agetdata.get_expect_element(int(args[0]))  # 获取预期元素
+
+        by = expect_element.split(">")[0]
+        by_local = expect_element.split('>')[1]
+
+        try:
+            if by == 'xpath':
+                self.driver.find_element_by_xpath(by_local)
+            elif by == 'classname':
+                self.driver.find_element_by_class_name(by_local)
+            elif by == 'css':
+                self.driver.find_element_by_css_selector(by_local)
+            elif by == 'id':
+                self.driver.find_element_by_id(by_local)
+            flag = 1
+        except NoSuchElementException:
+            flag = 0
+        finally:
+            return flag
+
+    def JudgeSealElement(self, *args):
+        """
+        判断封盘元素是否存在如果不存在就等待N秒 - 如果存在就直接进入下一步
+        :param args:
+        :return:
+        """
+        flag = None
+        if '>' in str(args[0]):
+            value = str(args[0]).split('>')
+            value1 = int(value[0])
+            expect_element = self.agetdata.get_element_key(value1)
+        else:
+            expect_element = self.agetdata.get_element_key(int(args[0]))
+        by = expect_element.split(">")[0]
+        by_local = expect_element.split('>')[1]
+
+        while flag is not 1:
+            try:
+                if by == 'xpath':
+                    self.driver.find_element_by_xpath(by_local)
+                elif by == 'classname':
+                    self.driver.find_element_by_class_name(by_local)
+                elif by == 'css':
+                    self.driver.find_element_by_css_selector(by_local)
+                elif by == 'id':
+                    self.driver.find_element_by_id(by_local)
+                flag = 0
+                time.sleep(120)
+                continue
+            except NoSuchElementException:
+                break
 
     def Input(self,*args):
         """
         输入值方法
         :return:
         """
-        print(len(args))
-        value = str(args[0]).split(',')
+        value = str(args[0]).split('>')
         value1 = int(value[0])
         value2 = value[1]
         element = self.agetbylo.get_element(value1)
@@ -52,11 +106,22 @@ class ActionMe:
         """
         点击操作方法
         :return:
+
         """
         element = self.agetbylo.get_element(int(args[0]))
         if element is None:
             return '', "元素没找到"
         element.click()
+
+    def GetPerform(self, *args):
+        """
+         坐标定位点击操作
+        :return:
+        """
+        value = str(args[0]).split('>')
+        X = int(value[1])
+        Y = int(value[2])
+        TouchAction(self.driver).press(x=X, y=Y).release().perform()
 
     def Yingc(self, *args):
         """
@@ -71,13 +136,14 @@ class ActionMe:
         截图方法
         :return:
         """
-        if ',' in  str(args[0]):
-            value = str(args[0]).split(',')
+        if '>' in  str(args[0]):
+            value = str(args[0]).split('>')
             value1 = int(value[0])
-            imageName = str(self.agetdata.get_caseName(value1))
+            imageName = str('ID' + str(value1) + self.agetdata.get_caseName(value1))
             self.driver.get_screenshot_as_file(screen_images_success + imageName + '.png')
         else:
-            imageName = str(self.agetdata.get_caseName(int(args[0])))
+            i = int(args[0])
+            imageName = str('ID' + str(i) +self.agetdata.get_caseName(i))
             self.driver.get_screenshot_as_file(screen_images_success + imageName + '.png')
 
     def ScreenShotError(self, *args):
@@ -85,15 +151,15 @@ class ActionMe:
         错误异常截图方法
         :return:
         """
-        if ',' in  str(args[0]):
-            value = str(args[0]).split(',')
+        if '>' in  str(args[0]):
+            value = str(args[0]).split('>')
             value1 = int(value[0])
             imageName = str(self.agetdata.get_caseName(value1))
             self.driver.get_screenshot_as_file(screen_images_error + imageName + '.png')
         else:
-            imageName = str(self.agetdata.get_caseName(int(args[0])))
+            i = int(args[0])
+            imageName = str('ID' + str(i) +self.agetdata.get_caseName(i))
             self.driver.get_screenshot_as_file(screen_images_error + imageName + '.png')
-
 
     def GetiPhoneCode(self,*args):
         """
@@ -145,7 +211,12 @@ class ActionMe:
         :param args:
         :return:
         """
-        time.sleep(int(args[0]))
+        if '>' in  str(args[0]):
+            value = str(args[0]).split('>')
+            value1 = int(value[1])
+            time.sleep(int(value1))
+        else:
+            time.sleep(int(args[0]))
 
     def get_size(self, *args):
         """
