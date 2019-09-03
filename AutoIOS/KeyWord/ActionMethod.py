@@ -84,7 +84,7 @@ class ActionMe:
                 elif by == 'id':
                     self.driver.find_element_by_id(by_local)
                 flag = 0
-                time.sleep(120)
+                time.sleep(60)
                 continue
             except NoSuchElementException:
                 break
@@ -177,7 +177,7 @@ class ActionMe:
         """
         pass
 
-    def ios_SwipeRight(self):
+    def ios_SwipeRight(self,*args):
         """
         ios滑动 右边
         :return:

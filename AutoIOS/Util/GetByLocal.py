@@ -11,7 +11,7 @@
 from selenium.common.exceptions import NoSuchElementException
 
 from AutoIOS.KeyWord.GetData import Getda
-from AutoIOS.Config.aibet_setting import screen_images_error
+from AutoIOS.Config.aibet_setting import *
 
 class GetByLo:
     def __init__(self, driver):
@@ -20,7 +20,7 @@ class GetByLo:
 
     def ScreenShotError(self,row):
         imageName = str(self.getE.get_caseName(row))
-        self.driver.get_screenshot_as_file(screen_images_error + imageName + 'error.png')
+        self.driver.get_screenshot_as_file('ID' + str(row) +screen_images_error + imageName + 'error.png')
 
     def get_element(self, row = None):
         """

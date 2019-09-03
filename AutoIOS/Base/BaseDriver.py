@@ -30,7 +30,7 @@ class BaDriver:
             "platformName": "iOS",
             'newCommandTimeout': "2000",
             "platformVersion": "12.4",
-            "deviceName": "iPhone Xʀ",
+            "deviceName": "iPhone Xs Max",
             "app": "/Users/function/Downloads/UIAutioPage/"+app_name
                                     }
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)

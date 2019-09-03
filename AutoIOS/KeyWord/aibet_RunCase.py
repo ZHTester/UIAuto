@@ -15,7 +15,7 @@ from AutoIOS.Util.AppiumServer import Serappium
 from AutoIOS.KeyWord.ActionMethod import ActionMe
 from AutoIOS.Util.SendEmail import SEmail
 from AutoIOS.Util.ImageZip import make_zip
-from AutoIOS.Util.OtherFunction import pass_fail_number
+from AutoIOS.Util.OtherFunction import pass_fail_number, LogReport
 from AutoIOS.Config.aibet_setting import *
 
 
@@ -24,6 +24,7 @@ class RunMethod:
         return "excel 有空格请检查"
 
     def run_method(self):
+        LogReport()  # 日志记录
         pass_count = []  # 统计成功个数
         fail_count =[]  # 统计失败个数
         data = Getda()

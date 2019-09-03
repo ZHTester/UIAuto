@@ -7,7 +7,7 @@
 # @Software: PyCharm
 """
 # Other存放路径
-report_file = r'../Config/aibet_Case.xls'  # 测试用例存放路径
+report_file = r'../Config/aibet_Case123.xls'  # 测试用例存放路径
 yam_file = '../Config/aibet.yaml'  # yam 命令生成路径
 screen_images_error = r'../aibetImage/ImageError/'  # 错误图片存储路径
 images_error = r'../aibetImage/errorImage.zip' # 错误图片zip包路径
@@ -23,6 +23,6 @@ PORT = "465"  # 发送端口
 SENDER = 'Function@seektopser.com'  # 发送者
 RECEIVERS = ['Function@seektopser.com']  # 接收邮件
 SUBJECT = 'IOS(UI)自动化测试报告' # 邮件主题内容
-OUT_FILENAME = 'aibet_Case.xls'
+OUT_FILENAME = 'aibet_Case123.xls'
 
 

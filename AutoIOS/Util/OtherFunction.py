@@ -10,10 +10,18 @@ Other方法
 """
 import time
 import zipfile
-from AutoIOS.Config.aibet_setting import images_error,images_success
+
+from AutoIOS.Log.LogData import LogConfig
 
 
 def pass_fail_number(pass_list,fail_list,app_name):
+    """
+    Email 发送消息
+    :param pass_list:
+    :param fail_list:
+    :param app_name:
+    :return:
+    """
     pass_num = float(len(pass_list))  # 浮点类型
     fail_num = float(len(fail_list))
     count_num = pass_num + fail_num  # 用例总数
@@ -46,6 +54,15 @@ def Zip_size(filename):
         si = len(byte_size)
         zz.append(si)
     return len(zz)
+
+def LogReport():
+    log = LogConfig('all.log', level='debug')
+    log.logger.debug('debug')
+    log.logger.info('info')
+    log.logger.warning('警告')
+    log.logger.error('报错')
+    log.logger.critical('严重')
+    LogConfig('error.log', level='error').logger.error('error')
 
 if __name__ == "__main__":
     print("\033[0;92m%s\033[0m" % "输出红色字符")
