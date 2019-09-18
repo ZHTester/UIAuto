@@ -13,9 +13,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
-from AutoIOS.Config.aibet_setting import *
-from AutoIOS.Util.ImageZip import annex
-from AutoIOS.Util.OtherFunction import Zip_size
+from AutoUI.Config.aibet_setting import *
+from AutoUI.Util.ImageZip import annex
+from AutoUI.Util.OtherFunction import Zip_size
 
 
 class SEmail:

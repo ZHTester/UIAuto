@@ -12,13 +12,12 @@ import time
 import xlrd
 from xlutils.copy import copy
 
-from AutoIOS.Config.aibet_setting import report_file
 
 
 class OpExcel:
     def __init__(self, file_path=None, i=None):
         if file_path is None:
-            self.file_path = report_file
+            self.file_path = file_path
         else:
             self.file_path = file_path
         if i is None:

@@ -6,9 +6,12 @@
       <w>agetdata</w>
       <w>aibet</w>
       <w>appium</w>
+      <w>appname</w>
       <w>arcname</w>
       <w>autio</w>
+      <w>automator</w>
       <w>badriver</w>
+      <w>ballbet</w>
       <w>basedriver</w>
       <w>bostport</w>
       <w>caselines</w>
@@ -19,6 +22,7 @@
       <w>dirnames</w>
       <w>dirpath</w>
       <w>emailsrvr</w>
+      <w>endtime</w>
       <w>excle</w>
       <w>excute</w>
       <w>findstr</w>
@@ -30,9 +34,11 @@
       <w>getexceldata</w>
       <w>geti</w>
       <w>gmail</w>
+      <w>goback</w>
       <w>imageserror</w>
       <w>ioscase</w>
       <w>lsof</w>
+      <w>lunbo</w>
       <w>methodac</w>
       <w>netstat</w>
       <w>numrow</w>
@@ -55,6 +61,8 @@
       <w>swipedown</w>
       <w>tasklist</w>
       <w>tost</w>
+      <w>totle</w>
+      <w>xcui</w>
       <w>xlsx</w>
       <w>yingc</w>
       <w>ziii</w>

@@ -11,9 +11,9 @@ Appium 服务端
 import multiprocessing
 import time
 
-from AutoIOS.Util.Osterminal import OsTerminal
-from AutoIOS.Util.WriteYaml import WriteYamlCommand
-from AutoIOS.Util.CheckPort import Cport
+from AutoUI.Util.Osterminal import OsTerminal
+from AutoUI.Util.WriteYaml import WriteYamlCommand
+from AutoUI.Util.CheckPort import Cport
 
 
 class Serappium:
@@ -28,7 +28,8 @@ class Serappium:
         获取设备信息
         :return:
         """
-        devicesli = ['iPhone Xʀ']
+        # devicesli = ['iPhone Xʀ']
+        devicesli = ['iPhone Xʀ','192.168.56.102:5555']
         return devicesli
 
     def create_post_list(self, start_port):

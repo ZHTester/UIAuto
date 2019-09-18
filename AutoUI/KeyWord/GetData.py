@@ -8,11 +8,11 @@
 
 获取数据
 """
-from AutoIOS.Util.OperaExcel import OpExcel
+from AutoUI.Util.OperaExcel import OpExcel
 
 class Getda:
-    def __init__(self):
-        self.opera_excel = OpExcel()
+    def __init__(self,filepath):
+        self.opera_excel = OpExcel(filepath)
 
     def get_case_lines(self):
         """
@@ -88,7 +88,7 @@ class Getda:
         :param row:
         :return:
         """
-        is_run = self.opera_excel.get_cell(row, 9)
+        is_run = self.opera_excel.get_cell(row, 8)
         if is_run == 'yes':
             return True
         else:

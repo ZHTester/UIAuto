@@ -9,7 +9,7 @@
 操作Yaml文件 存储appium启动命令
 """
 import yaml
-from AutoIOS.Config.aibet_setting import yam_file
+from AutoUI.Config.aibet_setting import yam_file
 
 
 class WriteYamlCommand:
