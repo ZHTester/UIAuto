@@ -12,10 +12,8 @@ import os
 import time
 import zipfile
 
-from AutoUI.Log.LogData import LogConfig
 
-
-def pass_fail_number(pass_list,fail_list,end_time):
+def pass_fail_number(pass_list,fail_list):
     """
     Email 发送消息
     :param pass_list:
@@ -26,21 +24,18 @@ def pass_fail_number(pass_list,fail_list,end_time):
     pass_num = float(len(pass_list))  # 浮点类型
     fail_num = float(len(fail_list))
     count_num = pass_num + fail_num  # 用例总数
-    try:
-        pass_result = "%.2f%%" % (pass_num / count_num * 100)
-        fail_result = "%.2f%%" % (fail_num / count_num * 100)
+    pass_result = "%.2f%%" % (pass_num / count_num * 100)
+    fail_result = "%.2f%%" % (fail_num / count_num * 100)
 
-        Message = "[IOS(UI)自动化测试执行时间---"+str(end_time)+"]:" \
-                                        "\n测试用例个数为%s个" \
-                                        "\n*通过个数为%s个*" \
-                                        "\n*失败个数为%s个*" \
-                                        "\n*通过率为%s*" \
-                                        "\n*失败率为%s*" \
-                  % (count_num, pass_num, fail_num,
-                     pass_result,fail_result ) + "\n*如需了解本次IOS(UI)自动化测试详情,请查看附件!*"
-        return Message
-    except ZeroDivisionError:
-        print('失败数目为0')
+    Message = "[IOS(UI)自动化测试]:" \
+                                    "\n测试用例个数为%s个" \
+                                    "\n*通过个数为%s个*" \
+                                    "\n*失败个数为%s个*" \
+                                    "\n*通过率为%s*" \
+                                    "\n*失败率为%s*" \
+              % (count_num, pass_num, fail_num,
+                 pass_result,fail_result ) + "\n*如需了解本次IOS(UI)自动化测试详情,请查看附件!*"
+    return Message
 
 
 def Zip_size(filename):
@@ -83,19 +78,15 @@ def deleteFolder(folderPath):
         else:
             # 如果是目录进行递归便利
             deleteFolder(folderPath + child)
-
     # 递归结束后文件夹已经是空文件夹，直接删除空文件夹
     os.rmdir(folderPath)
 
-
-def LogReport():
-    log = LogConfig('all.log', level='debug')
-    log.logger.debug('debug')
-    log.logger.info('info')
-    log.logger.warning('警告')
-    log.logger.error('报错')
-    log.logger.critical('严重')
-    LogConfig('error.log', level='error').logger.error('error')
+def creatFile(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+        return path
+    else:
+        return path
 
 if __name__ == "__main__":
-    print("\033[0;92m%s\033[0m" % "输出红色字符")
+    print(print(type(creatFile('../Image/123/q23'))))

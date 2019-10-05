@@ -12,25 +12,26 @@ import time
 
 from AutoUI.KeyWord.GetData import Getda
 from AutoUI.Util.AppiumServer import Serappium
-from AutoUI.KeyWord.ActionMethod import ActionMe
+from AutoUI.KeyWord.ActionMe import ActionMe
 from AutoUI.Util.SendEmail import SEmail
 from AutoUI.Util.ImageZip import make_zip
-from AutoUI.Util.OtherFunction import pass_fail_number, LogReport
-from AutoUI.Config.aibet_setting import *
+from AutoUI.Util.OtherFunction import pass_fail_number
+from AutoUI.Config.setting import *
 
 
-class RunMethod:
+class RunMethodAndroid:
     def __getattr__(self, item):
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method(excle_path,driver_name,appname=None):
+    def run_method_adnroid(driver_name,appname,sheetN):
         pass_count = []  # 统计成功个数
         fail_count =[]  # 统计失败个数
-        data = Getda(excle_path)
+
+        data = Getda(sheetN)
         server = Serappium()
         server.main()  #  启动appium服务
-        action_method = ActionMe(excle_path,appname,driver_name)
+        action_method = ActionMe(driver_name,appname,sheetN)
         caselines = data.get_case_lines()
         sendemail = SEmail()
         start = datetime.datetime.now()
@@ -44,9 +45,10 @@ class RunMethod:
 
                 # 自动化测试用例集执行
                 excute_method = getattr(action_method, handle_step)
-                time.sleep(2)
+                print('-------------------------------', i)
+                time.sleep(1)
                 excute_method(i,handle_value)
-                action_method.ScreenShot(i,handle_value)
+                action_method.ScreenShot(i,handle_value,file_s='../Image/android_img/执行图片/')
 
                 # 判断预期元素在当前页面是否存在
                 if expect_step is not None:
@@ -61,18 +63,18 @@ class RunMethod:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-        # 打印成功失败的图片压缩文件
-        make_zip(screen_images_success,images_success) # 打印成功图片成zip文件
-        make_zip(screen_images_error,images_error)
-
-        # # 结果邮件发送
-        message = pass_fail_number(pass_count,fail_count,end)
-        sendemail.Email_UiTest(message,aibetCase_Ios_file,OUT_FILENAME)
+        # # 打印成功失败的图片压缩文件
+        # make_zip(screen_images_success,images_success) # 打印成功图片成zip文件
+        # make_zip(screen_images_error,images_error)
+        #
+        # # # 结果邮件发送
+        # message = pass_fail_number(pass_count,fail_count)
+        # sendemail.Email_UiTest(message,aibetCase_file,OUT_FILENAME)
 
 
 if __name__ == "__main__":
-    run = RunMethod()
-    run.run_method(aibetCase_Android_file,app_name_android_aibet,'android')
+    run = RunMethodAndroid()
+    run.run_method_adnroid(driver_name='android',appname=app_name_android_aibet,sheetN=1)
 
 
 

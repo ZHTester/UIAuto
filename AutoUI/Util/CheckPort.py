@@ -12,8 +12,6 @@
 lsof -i
 """
 from AutoUI.Util.Osterminal import OsTerminal
-import os
-
 
 class Cport:
     def __init__(self):

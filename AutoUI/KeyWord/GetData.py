@@ -11,8 +11,8 @@
 from AutoUI.Util.OperaExcel import OpExcel
 
 class Getda:
-    def __init__(self,filepath):
-        self.opera_excel = OpExcel(filepath)
+    def __init__(self,sheetN):
+        self.opera_excel = OpExcel(sheetN)
 
     def get_case_lines(self):
         """

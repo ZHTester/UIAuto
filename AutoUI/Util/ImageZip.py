@@ -14,7 +14,7 @@ import os
 import mimetypes
 from email.mime.base import MIMEBase
 from email import encoders
-from AutoUI.Config.aibet_setting import screen_images_error
+from AutoUI.Config.setting import screen_images_error
 
 
 def make_zip(source_dir, output_filename):

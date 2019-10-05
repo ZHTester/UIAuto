@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 """
 # @Time    : 2019-08-20 18:02
 # @Author  : Function
@@ -11,19 +10,17 @@
 import time
 import xlrd
 from xlutils.copy import copy
-
+from AutoUI.Config.setting import *
 
 
 class OpExcel:
-    def __init__(self, file_path=None, i=None):
+    def __init__(self, Num, file_path=None):
         if file_path is None:
-            self.file_path = file_path
+            self.file_path = aibetCase_file
         else:
             self.file_path = file_path
-        if i is None:
-            i = 0
         self.excel = self.get_excel()
-        self.data = self.get_sheets(i)
+        self.data = self.get_sheets(Num)
 
     def get_excel(self):
         """
@@ -41,7 +38,7 @@ class OpExcel:
 
     def get_lines(self):
         """
-        获取excel行数
+        获取excel行数 case总数量
         :return:
         """
         lines = self.data.nrows

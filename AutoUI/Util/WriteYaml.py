@@ -9,11 +9,12 @@
 操作Yaml文件 存储appium启动命令
 """
 import yaml
-from AutoUI.Config.aibet_setting import yam_file
+from AutoUI.Config.setting import yam_file
 
 
 class WriteYamlCommand:
-    def read_data(self):
+    @staticmethod
+    def read_data():
         """
         加载yaml数据
         """
@@ -34,7 +35,7 @@ class WriteYamlCommand:
         写入数据
         """
         data = self.join_data(port)
-        with open("../Config/aibet.yaml", "a") as fr:
+        with open("../Config/AppiumPort.yaml", "a") as fr:
             yaml.dump(data, fr)
 
     def join_data(self, port):
@@ -53,7 +54,7 @@ class WriteYamlCommand:
         清空Yaml文件清除内存(为kill appium做好准备)
         :return:
         """
-        with open("../Config/aibet.yaml", "w") as fr:
+        with open("../Config/AppiumPort.yaml", "w") as fr:
             fr.truncate()
         fr.close()
 

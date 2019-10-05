@@ -10,18 +10,24 @@
 from selenium.common.exceptions import NoSuchElementException
 
 from AutoUI.KeyWord.GetData import Getda
-from AutoUI.Config.aibet_setting import *
+from Util.OtherFunction import creatFile
+
 
 class GetByLo:
-    def __init__(self, driver,filepath):
+    def __init__(self, driver, filepath):
         self.driver = driver
         self.getE = Getda(filepath)
 
-    def ScreenShotError(self,row):
-        imageName = str(self.getE.get_caseName(row))
-        self.driver.get_screenshot_as_file('ID' + str(row) +screen_images_error + imageName + 'error.png')
+    def ScreenShot(self, row, file_s=None):
+        """
+        截图方法
+        :return:
+        """
+        imageName = str('ID' + str(row) + self.getE.get_caseName(row))
+        file_path = creatFile(file_s)
+        self.driver.get_screenshot_as_file(file_path + imageName + '.png')
 
-    def get_element(self, row = None):
+    def get_element(self, row=None):
         """
         查找元素封装
         :return:
@@ -29,13 +35,12 @@ class GetByLo:
         global by, by_local
         try:
             local = self.getE.get_element_key(row)
-            by =  local.split(">")[0]
-            by_local = local.split('>')[1]
+            by = local.split("<")[0]
+            by_local = local.split('<')[1]
             print(by_local)
         except IndexError:
-            print('------------下标越界错误用例行数--%s------' %row)
-            self.ScreenShotError(row)  # 错误截图
-
+            print('------------下标越界错误用例行数--%s------' % row)
+            self.ScreenShot(row, file_s='../Image/Error_Img/下标越界图片/')  # 错误截图
         try:
             if by == 'xpath':
                 return self.driver.find_element_by_xpath(by_local)
@@ -50,19 +55,19 @@ class GetByLo:
             else:
                 return None
         except NoSuchElementException:
-            print('------------找不到元素错误用例行数--%s------' %row)
-            self.ScreenShotError(row)  # 错误截图
+            print('------------找不到元素错误用例行数--%s------' % row)
+            self.ScreenShot(row, file_s='../Image/Error_Img/元素找不到图片/')  # 错误截图
 
-    def get_lun_element(self,row = None):
+    def get_lun_element(self, row=None):
         """
         轮播图获取元素形式  element1>element2
         :param row:
         :return:
         """
         local = self.getE.get_element_key(row)
-        element1 = local.split(">")[0]
-        element2 = local.split(">")[1]
-        return element1,element2
+        element1 = local.split("<")[0]
+        element2 = local.split("<")[1]
+        return element1, element2
 
 
 if __name__ == '__main__':

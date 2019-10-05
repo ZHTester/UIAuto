@@ -37,7 +37,7 @@ class OsTerminal:
 
 if __name__ == "__main__":
     ter = OsTerminal()
-    val = os.system('appium -p 4747')
-    print(ter.Excute_terminal_result(val))  # 启动服务端服务
+    val = os.system('top')
+    # print(ter.Excute_terminal_result(val))  # 启动服务端服务
 
 
