@@ -56,20 +56,6 @@ class BaDriver:
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
 
-
-    # @staticmethod
-    # def get_web_driver():
-    #     """
-    #     获取浏览器 web Driver
-    #     :return:
-    #     """
-    #     path = "../Base/webDriver/chromedriver"
-    #     driver = webdriver.Chrome(path)
-    #     driver.maximize_window()
-    #     driver.get("http://www.aalgds.com/login/?type=login")
-    #     driver.implicitly_wait(1)
-    #     return driver
-
     def main_driver(self,name,app_name):
         """
         driver 任意选择
