@@ -15,6 +15,7 @@ from appium import webdriver
 # from selenium import webdriver
 
 from AutoUI.Util.WriteYaml import WriteYamlCommand
+from Util.AppiumServer import Serappium
 
 
 class BaDriver:
@@ -35,6 +36,8 @@ class BaDriver:
             "app": "/Users/function/Downloads/UIAutioPage/" + app_name
               }
 
+        print(capabilities['app'])
+
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
 
@@ -52,6 +55,7 @@ class BaDriver:
             "deviceName": "192.168.56.106:5555",
             "app": "/Users/function/Downloads/UIAutioPage/" + appname
         }
+
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
@@ -74,6 +78,9 @@ class BaDriver:
 
 if __name__ == '__main__':
     b = BaDriver()
+    server = Serappium()
+    server.main()  # 启动appium服务
+    b.get_ios_driver('aibet.app')
 
 
 

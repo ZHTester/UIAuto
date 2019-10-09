@@ -24,16 +24,17 @@ class RunMethodIos:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_ios(driver_name,sheetN,appname=None):
+    def run_method_ios(driver_name,appname,sheetN):
         pass_count = []  # 统计成功个数
         fail_count =[]  # 统计失败个数
         data = Getda(sheetN)
         server = Serappium()
         server.main()  #  启动appium服务
-        action_method = ActionMe(driver_name,sheetN,appname)
+        action_method = ActionMe(driver_name,appname,sheetN)
         caselines = data.get_case_lines()
         sendemail = SEmail()
         start = datetime.datetime.now()
+        print("------------start time  used---------------:",start)
         print("------------start time  used---------------:",start)
         # 注视 注视 注视
         for i in range(1, caselines):
@@ -75,4 +76,4 @@ class RunMethodIos:
 
 if __name__ == "__main__":
     run = RunMethodIos()
-    run.run_method_ios(driver_name='ios', sheetN=0, appname=app_name_ios_aibet)
+    run.run_method_ios(driver_name='ios', appname=app_name_ios_aibet, sheetN=0)

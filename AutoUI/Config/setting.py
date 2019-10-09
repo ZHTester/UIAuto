@@ -15,8 +15,8 @@ screen_images_success = r'../Image/IOS_aibet_Image/ImageSuccess/' # 成功图片
 images_success = r'../Image/IOS_aibet_Image/successImage.zip'  # 成功图片文件路径
 lun_image = r'../Image/IOS_aibet_Image/lunImage/'
 LunImage = r'../Image/IOS_aibet_Image/lunImage.zip'
-app_name_ios_aibet = 'aibet.app'
-app_name_android_aibet = 'ballbet.apk'
+app_name_ios_aibet = "aibet.app"
+app_name_android_aibet = "ballbet.apk"
 
 # Email相关变量
 MAIL_HOST = "secure.emailsrvr.com"  # 设置服务器
