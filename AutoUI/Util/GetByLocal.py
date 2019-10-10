@@ -60,7 +60,7 @@ class GetByLo:
 
     def get_lun_element(self, row=None):
         """
-        轮播图获取元素形式  element1>element2
+        轮播图获取元素形式  element1>nt2
         :param row:
         :return:
         """

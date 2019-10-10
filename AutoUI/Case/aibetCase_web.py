@@ -52,13 +52,7 @@ class RunMethodWeb:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-        # 打印成功失败的图片压缩文件
-        make_zip(screen_images_success,images_success) # 打印成功图片成zip文件
-        make_zip(screen_images_error,images_error)
-
-        # 结果邮件发送
-        message = pass_fail_number(pass_count,fail_count)
-        sendemail.Email_UiTest(message,aibetCase_file,OUT_FILENAME)
+        return  fail_count
 
 
 if __name__ == "__main__":

@@ -13,28 +13,14 @@ import time
 import zipfile
 
 
-def pass_fail_number(pass_list,fail_list):
+def pass_fail_number(fail_list):
     """
-    Email 发送消息
-    :param pass_list:
+    发送消息
     :param fail_list:
-    :param app_name:
     :return:
     """
-    pass_num = float(len(pass_list))  # 浮点类型
     fail_num = float(len(fail_list))
-    count_num = pass_num + fail_num  # 用例总数
-    pass_result = "%.2f%%" % (pass_num / count_num * 100)
-    fail_result = "%.2f%%" % (fail_num / count_num * 100)
-
-    Message = "[IOS(UI)自动化测试]:" \
-                                    "\n测试用例个数为%s个" \
-                                    "\n*通过个数为%s个*" \
-                                    "\n*失败个数为%s个*" \
-                                    "\n*通过率为%s*" \
-                                    "\n*失败率为%s*" \
-              % (count_num, pass_num, fail_num,
-                 pass_result,fail_result ) + "\n*如需了解本次IOS(UI)自动化测试详情,请查看附件!*"
+    Message = "[IOS(UI)自动化测试]:\n*失败个数为%s个*"% fail_num + "\n*如需了解本次IOS(UI)自动化测试详情,请查看附件!*"
     return Message
 
 

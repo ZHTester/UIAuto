@@ -9,14 +9,10 @@
 # Other存放路径
 aibetCase_file = r'../Config/AutoCase.xls'  # 测试用例存放路径
 yam_file = r'../Config/AppiumPort.yaml'  # yam 命令生成路径
-screen_images_error = r'../Image/IOS_aibet_Image/ImageError/'  # 错误图片存储路径
-images_error = r'../Image/IOS_aibet_Image/errorImage.zip' # 错误图片zip包路径
-screen_images_success = r'../Image/IOS_aibet_Image/ImageSuccess/' # 成功图片文件路径
-images_success = r'../Image/IOS_aibet_Image/successImage.zip'  # 成功图片文件路径
-lun_image = r'../Image/IOS_aibet_Image/lunImage/'
-LunImage = r'../Image/IOS_aibet_Image/lunImage.zip'
 app_name_ios_aibet = "aibet.app"
 app_name_android_aibet = "ballbet.apk"
+ErrorImage = '../Image/Error_Img'   # 所有的图片
+ErrorImageZip = '../Image/Error.zip'   # 所有的图片
 
 # Email相关变量
 MAIL_HOST = "secure.emailsrvr.com"  # 设置服务器

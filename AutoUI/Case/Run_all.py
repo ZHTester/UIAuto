@@ -13,12 +13,17 @@ from AutoUI.Case.aibetCase_web import RunMethodWeb
 from AutoUI.Case.aibetCase_android import RunMethodAndroid
 from AutoUI.Case.aibetCase_ios import RunMethodIos
 from AutoUI.Config.setting import *
+from AutoUI.Util.ImageZip import make_zip
+from AutoUI.Util.OtherFunction import pass_fail_number
+from Util.SendEmail import SEmail
+
 
 class RunAll:
     def __init__(self):
         self.ios = RunMethodIos()
         self.android = RunMethodAndroid()
         self.web = RunMethodWeb()
+        self.sendemail = SEmail()
 
     def Run_main(self):
         thread_android = threading.Thread(target=self.android.run_method_adnroid(driver_name='android',sheetN=1,appname = app_name_android_aibet))
@@ -29,6 +34,16 @@ class RunAll:
 
         for j in threads:
             j.start()
+
+        total = self.ios + self.android + self.web
+        return total
+
+    def send_email(self):
+        total = self.Run_main()
+        make_zip(ErrorImage,ErrorImageZip)
+        message = pass_fail_number(total)
+        self.sendemail.Email_UiTest(message, aibetCase_file, OUT_FILENAME)
+
 
 
 if __name__ == "__main__":
