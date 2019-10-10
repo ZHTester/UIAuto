@@ -64,10 +64,6 @@ class RunMethodIos:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-
-        # # 结果邮件发送
-        message = pass_fail_number(pass_count,fail_count)
-        sendemail.Email_UiTest(message,aibetCase_file,OUT_FILENAME)
         return fail_count
 
 

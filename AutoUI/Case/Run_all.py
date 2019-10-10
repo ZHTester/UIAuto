@@ -34,7 +34,6 @@ class RunAll:
 
         for j in threads:
             j.start()
-
         total = self.ios + self.android + self.web
         return total
 

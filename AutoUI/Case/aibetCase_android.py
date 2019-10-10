@@ -62,7 +62,6 @@ class RunMethodAndroid:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-
         return  fail_count
 
 
