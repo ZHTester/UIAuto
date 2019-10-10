@@ -53,10 +53,8 @@ class SEmail:
         message.attach(att1)
 
         # 上传图片压缩文件
-        if Zip_size(images_success) is not 0:
-            message.attach(annex(images_success))
-        if Zip_size(images_error) is not 0:
-            message.attach(annex(images_error))
+        if Zip_size(ErrorImage) is not 0:
+            message.attach(annex(ErrorImage))
 
         # 连接邮箱Server
         try:

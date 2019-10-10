@@ -47,7 +47,7 @@ class RunAll:
 
 if __name__ == "__main__":
     r = RunAll()
-    r.Run_main()
+    r.send_email()
 
 
 
