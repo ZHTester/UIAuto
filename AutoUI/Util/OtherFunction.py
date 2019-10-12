@@ -12,16 +12,28 @@ import os
 import time
 import zipfile
 
+from Util.table_write import out_table
 
-def pass_fail_number(fail_list):
+
+def pass_fail_number(pass_list,fail_list):
     """
     发送消息
-    :param fail_list:
     :return:
     """
+
+    pass_num = float(len(pass_list))  # 百分比就是float 也就是浮点类型
     fail_num = float(len(fail_list))
-    Message = "[IOS(UI)自动化测试]:\n*失败个数为%s个*"% fail_num + "\n*如需了解本次IOS(UI)自动化测试详情,请查看附件!*"
-    return Message
+    count_num = pass_num + fail_num  # 测试用例总数
+    # 90%
+    pass_result = "%.2f%%" % (pass_num / count_num * 100)
+    fail_result = "%.2f%%" % (fail_num / count_num * 100)
+
+
+    T = {
+            'head':['用例总数','成功数','成功率','失败数','失败率'],
+            'body':[[str(count_num),str(pass_num),str(pass_result),str(fail_num),str(fail_result)]]
+            }
+    print(out_table(T),end='')
 
 
 def Zip_size(filename):
@@ -75,4 +87,4 @@ def creatFile(path):
         return path
 
 if __name__ == "__main__":
-    print(print(type(creatFile('../Image/123/q23'))))
+    pass_fail_number([1,2,3,1,2,31,2,31,2,31,2,3],[1,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,3])

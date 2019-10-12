@@ -52,7 +52,8 @@ class BaDriver:
         capabilities = {
             "platformName": "Android",
             "automationName": "UiAutomator2",
-            "deviceName": "192.168.56.106:5555",
+            "deviceName": "681c4234",
+            "noReset":True,
             "app": "/Users/function/Downloads/UIAutioPage/" + appname
         }
 

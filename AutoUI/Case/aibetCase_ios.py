@@ -32,7 +32,6 @@ class RunMethodIos:
         server.main()  #  启动appium服务
         action_method = ActionMe(driver_name,appname,sheetN)
         caselines = data.get_case_lines()
-        sendemail = SEmail()
         start = datetime.datetime.now()
         print("------------start time  used---------------:",start)
         print("------------start time  used---------------:",start)
@@ -64,7 +63,7 @@ class RunMethodIos:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-        return fail_count
+        return [pass_count,fail_count]
 
 
 if __name__ == "__main__":

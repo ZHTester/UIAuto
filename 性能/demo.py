@@ -6,59 +6,59 @@
 # # # @FileName    : demo.py
 # # # @Software: PyCharm
 # # """
-# # import time
-# import json
-# from urllib import request
-#
-# import requests
-# # from hashlib import md5
-# #
-# #
-# #
-# # url1 = "http://mutest.ballbet5.com/api/gl/login/username"
-# # list_body = {"username":"auto123",
-# #              "password":'auto123123',
-# #              "productType":1
-# #              }
-# # dic_header = {'device-id': '1594290655',
-# #                 'os-type': '0'
-# #               }
-# #
-# # def encrypt_md5(s):
-# #     # 创建md5对象
-# #     new_md5 = md5()
-# #     new_md5.update(s.encode(encoding='utf-8'))
-# #     # 加密
-# #     return new_md5.hexdigest()
-# #
-# # def getToken():
-# #     str_time = (str(time.time())[0:10]) + "000"
-# #     dic_header.update({'timestamp': str_time, 'version': '1.0'})
-# #
-# #     # 拼接字符串
-# #     list = []
-# #     for key in dic_header:
-# #         list.append(key)
-# #         list.append('=')
-# #         list.append(dic_header[key])
-# #         list.append('&')
-# #     linkString = ''.join(list)[0:-1]
-# #
-# #     # 生成签名
-# #     secret = "global"
-# #     str_sign = linkString + secret
-# #     sign = encrypt_md5(str_sign)
-# #     dic_sign = {"sign": sign}
-# #
-# #     dic_header.update(dic_sign)
-# #     return dic_header
-# #
-# #  # 获取token
-# # dic_header1 = getToken()
-# # res1 = requests.post(url=url1, data=list_body, headers=dic_header1).json()
-# # token = res1['data']['token']
-# # dic_header.update({'token': token})
-# # print(res1)
+import time
+import json
+import requests
+from hashlib import md5
+
+
+
+url1 = "http://mutest.ballbet5.com/api/gl/login/username"
+list_body = {"username":"auto123",
+             "password":'auto123123',
+             "productType":1
+             }
+dic_header = {'device-id': '1594290655',
+                'os-type': '0'
+              }
+
+def encrypt_md5(s):
+    # 创建md5对象
+    new_md5 = md5()
+    new_md5.update(s.encode(encoding='utf-8'))
+    # 加密
+    return new_md5.hexdigest()
+
+def getToken():
+    str_time = (str(time.time())[0:10]) + "000"
+    dic_header.update({'timestamp': str_time, 'version': '1.0'})
+
+    # 拼接字符串
+    list = []
+    for key in dic_header:
+        list.append(key)
+        list.append('=')
+        list.append(dic_header[key])
+        list.append('&')
+    linkString = ''.join(list)[0:-1]
+
+    # 生成签名
+    secret = "global"
+    str_sign = linkString + secret
+    sign = encrypt_md5(str_sign)
+    dic_sign = {"sign": sign}
+
+    dic_header.update(dic_sign)
+    return dic_header
+
+ # 获取token
+dic_header1 = getToken()
+res1 = requests.post(url=url1, data=list_body, headers=dic_header1).json()
+token = res1['data']['token']
+dic_header.update({'token': token})
+print(res1)
+
+
 # #
 # # uid = '428067'
 # # dic_uid = {"uid": uid}

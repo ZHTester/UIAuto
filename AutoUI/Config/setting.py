@@ -6,11 +6,9 @@
 # @FileName    : setting.py
 # @Software: PyCharm
 """
-# Other存放路径
+# 图片文件存储路径
 aibetCase_file = r'../Config/AutoCase.xls'  # 测试用例存放路径
 yam_file = r'../Config/AppiumPort.yaml'  # yam 命令生成路径
-app_name_ios_aibet = "aibet.app"
-app_name_android_aibet = "ballbet.apk"
 ErrorImage = '../Image/Error_Img'   # 所有的图片
 ErrorImageZip = '../Image/Error.zip'   # 所有的图片
 
@@ -23,5 +21,11 @@ SENDER = 'Function@seektopser.com'  # 发送者
 RECEIVERS = ['Function@seektopser.com','felix@seektopser.com']  # 接收邮件
 SUBJECT = 'IOS(UI)自动化测试报告' # 邮件主题内容
 OUT_FILENAME = 'AutoCase.xls'
+
+# app名称路径
+app_name_ios_aibet = "aibet.app"
+app_name_android_aibet = "ballbet.apk"
+
+
 
 

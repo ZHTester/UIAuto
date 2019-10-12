@@ -52,7 +52,7 @@ class RunMethodWeb:
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
 
-        return  fail_count
+        return [pass_count,fail_count]
 
 
 if __name__ == "__main__":

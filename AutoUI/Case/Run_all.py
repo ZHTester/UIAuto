@@ -34,13 +34,14 @@ class RunAll:
 
         for j in threads:
             j.start()
-        total = self.ios + self.android + self.web
-        return total
+        pass_n = self.ios['pass_count'] + self.android['pass_count'] + self.web['pass_count']
+        fail_n = self.ios['fail_count'] + self.android['fail_count'] + self.web['fail_count']
+        return pass_n,fail_n
 
     def send_email(self):
-        total = self.Run_main()
+        pass_n, fail_n = self.Run_main()
         make_zip(ErrorImage,ErrorImageZip)
-        message = pass_fail_number(total)
+        message = pass_fail_number(pass_n,fail_n)
         self.sendemail.Email_UiTest(message, aibetCase_file, OUT_FILENAME)
 
 
