@@ -7,34 +7,38 @@
 
 获取元素定位方式  封装
 """
-from selenium.common.exceptions import NoSuchElementException
+import time
 
+from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
+from AutoUI.KeyWord.GetData import Getda
 from AutoUI.KeyWord.GetData import Getda
 from Util.OtherFunction import creatFile
 
 
 class GetByLo:
-    def __init__(self, driver, filepath):
+    def __init__(self, driver, sheetN):
         self.driver = driver
-        self.getE = Getda(filepath)
+        self.sheetN = sheetN
+        self.data = Getda(sheetN)
+
 
     def ScreenShot(self, row, file_s=None):
         """
         截图方法
         :return:
         """
-        imageName = str('ID' + str(row) + self.getE.get_caseName(row))
+        imageName = str('ID' + str(row) + self.data.get_caseName(row))
         file_path = creatFile(file_s)
         self.driver.get_screenshot_as_file(file_path + imageName + '.png')
 
-    def get_element(self, row=None):
+    def get_element(self,row=None):
         """
         查找元素封装
         :return:
         """
         global by, by_local
         try:
-            local = self.getE.get_element_key(row)
+            local = self.data.get_element_key(row)
             by = local.split("<")[0]
             by_local = local.split('<')[1]
             print(by_local)
@@ -56,6 +60,9 @@ class GetByLo:
                 return None
         except NoSuchElementException:
             print('------------找不到元素错误用例行数--%s------' % row)
+            self.data.write_value(row, '测试失败',self.sheetN)
+            time.sleep(1)
+            print('-------------------我说你我说你我说你我说你我说你我说你我说你我说你我说你我说你------------------------')
             self.ScreenShot(row, file_s='../Image/Error_Img/元素找不到图片/')  # 错误截图
 
     def get_lun_element(self, row=None):
@@ -64,7 +71,7 @@ class GetByLo:
         :param row:
         :return:
         """
-        local = self.getE.get_element_key(row)
+        local = self.data.get_element_key(row)
         element1 = local.split("<")[0]
         element2 = local.split("<")[1]
         return element1, element2

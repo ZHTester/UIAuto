@@ -61,8 +61,8 @@ class Serappium:
 
     def start_server(self, i):
         """
-        启动appium服务器
-        :param i: 启动服务的编号
+
+        :param i:
         :return:
         """
         self.start_list = self.create_command_list(i)

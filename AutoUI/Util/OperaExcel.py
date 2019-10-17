@@ -34,6 +34,7 @@ class OpExcel:
         获取sheets的内容
         """
         tables = self.excel.sheets()[i]
+
         return tables
 
     def get_lines(self):
@@ -54,26 +55,25 @@ class OpExcel:
         data = self.data.cell(row, cell).value
         return data
 
-    def write_value(self, row, value):
+    def write_value(self, row, value,sheetN):
         """
         写入方法  --- 主要用于写入测试结果 True 或者是 False
+        :param sheetN:
         :param row: 行号
         :param value: 写入值
         :return:
         """
-        read_data = xlrd.open_workbook(self.file_path)
+        read_data = xlrd.open_workbook(self.file_path,formatting_info=True)
         write_data = copy(read_data)
-        sheet_data = write_data.get_sheet(0)
-        sheet_data.write(row, 7, value)
+        sheet_data = write_data.get_sheet(sheetN)
+        sheet_data.write(row, 5, value)
         write_data.save(self.file_path)
 
 if __name__ == '__main__':
-    p = OpExcel()
+    p = OpExcel(0)
     s = p.get_cell(1, 0)  # 获取单元格相关内容
-    for i in range(18,200):
-        print(i)
-        p.write_value(i, '这是我写入的内容')
-        print("写入成功")
+    print(s)
+
 
 
 

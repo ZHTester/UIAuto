@@ -5,10 +5,6 @@ import time
 
 from KeyWord.GetData import Getda
 from KeyWord.ActionMe_Selenium import ActionMe
-from Util.SendEmail import SEmail
-from Util.ImageZip import make_zip
-from Util.OtherFunction import pass_fail_number
-from Config.setting import *
 
 
 class RunMethodWeb:
@@ -18,43 +14,42 @@ class RunMethodWeb:
     @staticmethod
     def run_method_web(driver_name,sheetN):
         pass_count = []  # 统计成功个数
-        fail_count =[]  # 统计失败个数
+        total_count = []  # 总数
+
         data = Getda(sheetN)
-        action_method = ActionMe(driver_name,sheetN)
+        action_method = ActionMe(driver_name, sheetN)
         caselines = data.get_case_lines()
-        sendemail = SEmail()
         start = datetime.datetime.now()
-        print("------------start time  used---------------:",start)
+        print("------------start time  used---------------:", start)
+
         for i in range(1, caselines):
             is_run = data.get_is_run(i)
             if is_run is True:
                 handle_step = data.get_handle_step(i)  # 执行方法
                 handle_value = data.get_handle_value(i)  # 操作值
-                expect_step = data.get_expect_handle(i)  # 预期元素操作步骤
+                result_test = data.get_is_result(i)  # 获取结果
 
                 # 自动化测试用例集执行
                 excute_method = getattr(action_method, handle_step)
-                print('-------------------------------', handle_step)
-                time.sleep(1)
-                excute_method(i,handle_value)
-                action_method.ScreenShot(i,handle_value,file_s='../Image/web_img/执行图片/')
-
+                print('-------------------------------', i)
+                time.sleep(2)
+                excute_method(i, handle_value)
+                action_method.ScreenShot(i, handle_value, file_s='../Image/web_img/执行图片/')
+                total_count.append(i)
                 # 判断预期元素在当前页面是否存在
-                if expect_step is not None:
-                    expect_result = getattr(action_method, expect_step)
-                    result = expect_result(i, handle_value)
-                    if result == 1:
-                        data.write_value(i, '测试通过')
-                        pass_count.append(i)
-                    else:
-                        data.write_value(i, '测试失败')
-                        fail_count.append(i)
+                if result_test != "测试失败" or "":
+                    data.write_value(i, '测试通过',sheetN)
+                    pass_count.append(i)
+
         end = datetime.datetime.now()
+        pass_count_num = len(pass_count)
+        fail_count_num = len(total_count) - len(pass_count)
         print("------------Time used---------------:", end - start)
 
-        return [pass_count,fail_count]
-
+        return pass_count_num,fail_count_num
 
 if __name__ == "__main__":
     run = RunMethodWeb()
-    run.run_method_web(driver_name='web',sheetN=2)
+    r  = run.run_method_web(driver_name='web',sheetN=2)
+    a = r[0]+r[1]
+

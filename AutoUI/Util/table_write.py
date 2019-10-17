@@ -61,3 +61,5 @@ if __name__ == '__main__':
                     ]
             }
     print(out_table(T),end='')
+    print('-------------------')
+    print(out_table(T))

@@ -9,17 +9,21 @@ web H5 相关api
 """
 import random
 import time
-
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
-from AutoUI.Base.BaseDr_Selenium import BaDriver
-from AutoUI.Util.GetByLocal import GetByLo
-from AutoUI.KeyWord.GetData import Getda
+from Base.BaseDr_Selenium import BaDriver
+from Util.GetByLocal import GetByLo
+from KeyWord.GetData import Getda
 from Util.OtherFunction import creatFile
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.touch_actions import TouchActions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ActionMe:
-    def  __init__(self,driver_name,sheetN):
+    def __init__(self,driver_name,sheetN):
         Basedriver = BaDriver()
         self.driver = Basedriver.main_driver(driver_name)
         self.agetbylo = GetByLo(self.driver,sheetN)
@@ -46,6 +50,8 @@ class ActionMe:
                 self.driver.find_element_by_id(by_local)
             elif by == 'aid':
                 return self.driver.find_element_by_id(by_local)
+            elif by == 'link_text':
+                return self.driver.find_element_by_link_text(by_local)
             flag = 1
         except NoSuchElementException:
             flag = 0
@@ -61,11 +67,55 @@ class ActionMe:
         if element is None:
             return '', "元素没找到"
         value = str(args[1])
+        print(value)
         if '.0' in value:
             value1 = int(args[1])
             element.send_keys(value1)
         else:
             element.send_keys(value)
+
+
+    def P_Click(self, *args):
+        """
+        坐标点击
+        :return:
+        """
+        element = args[1]
+        postion = element.split(",")
+        x = postion[0]
+        y = postion[1]
+        if element is None:
+            return '', "未读取到坐标"
+        # print(element,type(element))
+        ActionChains(self.driver).move_by_offset(x,y).click().perform()
+
+
+    def Move(self, *args):
+        """
+        上下滑动
+        :return:
+        """
+        offset = args[1]
+        postion = offset.split(",")
+        start_x = postion[0]
+        start_y = postion[1]
+        end_x = postion[2]
+        end_y = postion[3]
+        print(start_x, start_y, end_x, end_y)
+        self.driver.swipe(start_x, start_y, end_x, end_y)
+
+
+    def moveTo(self, *args):
+        """
+        鼠标移动到指定元素
+        :return:
+        """
+        element = self.agetbylo.get_element(int(args[0]))
+        if element is None:
+            return '', "元素没找到"
+        print(element)
+        ActionChains(self.driver).move_to_element(element).perform()
+
 
     def OnClick(self, *args):
         """
@@ -76,6 +126,19 @@ class ActionMe:
         if element is None:
             return '', "元素没找到"
         element.click()
+        time.sleep(1)
+
+    def WaitClick(self, *args):
+        """
+        点击操作方法
+        :return:
+        """
+        value = self.agetbylo.get_element(int(args[0]))
+        if value is None:
+            return '', "元素没找到"
+        element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, str(value))))
+        element.click()
+        time.sleep(1)
 
     def Rinput(self,*args):
         """
@@ -103,7 +166,7 @@ class ActionMe:
             element.click()
             time.sleep(3)
 
-    def W_clear(self, *args):
+    def clear(self, *args):
         """
         清空输入框
         :return:
@@ -117,6 +180,13 @@ class ActionMe:
             for i in text:
                 element.send_keys(Keys.BACKSPACE)
 
+    def hide_Keyboard(self, *args):
+        """
+        隐藏键盘
+        :return:
+        """
+        self.driver.hide_keyboard()
+
     def switchIframe(self, *args):
         """
         定位到iframe
@@ -127,6 +197,7 @@ class ActionMe:
             return '', "元素没找到"
         else:
             self.driver.switch_to_frame(element)
+
 
     def switchDefault(self, *args):
         """
@@ -141,6 +212,7 @@ class ActionMe:
         :return:
         """
         value = int(args[1])
+        print(value,type(value))
         windows = self.driver.window_handles
         self.driver.switch_to_window(windows[value])
         time.sleep(2)
@@ -165,8 +237,9 @@ class ActionMe:
         时间等待
         :return:
         """
-        value = int(args[1])
-        time.sleep(value)
+        value = args[1]
+        print("等待" + str(value) + "秒，等待元素加载")
+        time.sleep(int(value))
 
     def bowserBack(self, *args):
         """

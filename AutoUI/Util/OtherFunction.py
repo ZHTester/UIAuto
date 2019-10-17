@@ -9,31 +9,35 @@
 Other方法
 """
 import os
-import time
 import zipfile
-
+from xlutils.copy import copy
+import xlrd
 from Util.table_write import out_table
+from AutoUI.Util.OperaExcel import OpExcel
 
 
-def pass_fail_number(pass_list,fail_list):
+def pass_fail_number(pass_num,fail_num):
     """
     发送消息
     :return:
     """
-
-    pass_num = float(len(pass_list))  # 百分比就是float 也就是浮点类型
-    fail_num = float(len(fail_list))
     count_num = pass_num + fail_num  # 测试用例总数
     # 90%
-    pass_result = "%.2f%%" % (pass_num / count_num * 100)
-    fail_result = "%.2f%%" % (fail_num / count_num * 100)
+    pass_result = pass_num / count_num * 100
+    fail_result = fail_num / count_num * 100
 
 
-    T = {
-            'head':['用例总数','成功数','成功率','失败数','失败率'],
-            'body':[[str(count_num),str(pass_num),str(pass_result),str(fail_num),str(fail_result)]]
-            }
-    print(out_table(T),end='')
+    content = ["[**********UI自动化测试**********]:",
+               "本次自动化接口测试共执行接口测试用例个数为%s个" % count_num,
+               "*通过个数为%s个*" % pass_num,
+               "*失败个数为%s个*" % fail_num,
+               "*通过率为%s*" % pass_result,
+               "*失败率为%s*"%fail_result
+               ]
+
+    msg = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'.join(content)
+
+    return  msg
 
 
 def Zip_size(filename):
@@ -48,7 +52,6 @@ def Zip_size(filename):
         si = len(byte_size)
         zz.append(si)
     return len(zz)
-
 
 def deleteFolder(folderPath):
     # 反向查找传入的文件夹路径最后一个字符是否为斜杠
@@ -86,5 +89,25 @@ def creatFile(path):
     else:
         return path
 
+
+def  wr():
+    data  = OpExcel(0,file_path=r'../Config/test.xls')
+    read_data = xlrd.open_workbook(r'../Config/test.xls')
+    write_data = copy(read_data)
+    sheet_data = write_data.get_sheet(0)
+    for i in range(16):
+        te = data.get_cell(i, 0)
+        print(te)
+        print(type(te))
+        if te != "测试失败":
+            sheet_data.write(i, 0, "测试通过")
+            write_data.save(r'../Config/test.xls')
+            print("写入成功")
+
+
+
 if __name__ == "__main__":
-    pass_fail_number([1,2,3,1,2,31,2,31,2,31,2,3],[1,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,31,2,3])
+    a = pass_fail_number(89,21)
+    print(a)
+    wr()
+

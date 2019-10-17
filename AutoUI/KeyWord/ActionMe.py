@@ -28,33 +28,6 @@ class ActionMe:
         self.agetbylo = GetByLo(self.driver,sheetN)
         self.agetdata = Getda(sheetN)
 
-    def GetElement(self, *args):
-        """
-        判断元素是否存在
-        :param args:
-        :return:
-        """
-        flag = None
-        expect_element = self.agetdata.get_expect_element(int(args[0]))  # 获取预期元素
-        by = expect_element.split("<")[0]
-        by_local = expect_element.split('<')[1]
-        try:
-            if by == 'xpath':
-                self.driver.find_element_by_xpath(by_local)
-            elif by == 'classname':
-                self.driver.find_element_by_class_name(by_local)
-            elif by == 'css':
-                self.driver.find_element_by_css_selector(by_local)
-            elif by == 'id':
-                self.driver.find_element_by_id(by_local)
-            elif by == 'aid':
-                return self.driver.find_element_by_id(by_local)
-            flag = 1
-        except NoSuchElementException:
-            flag = 0
-        finally:
-            return flag
-
     def JudgeSealElement(self, *args):
         """
         判断封盘元素是否存在如果不存在就等待N秒 - 如果存在就直接进入下一步
@@ -259,7 +232,7 @@ class ActionMe:
                 self.driver.find_element_by_xpath(xpath1).click()
                 time.sleep(8)
                 imageName = str('ID' + str(inter) + '循环轮播图')
-                self.driver.get_screenshot_as_file(lun_image + imageName + '.png')
+                self.ScreenShot()
                 time.sleep(1)
                 self.driver.find_element_by_xpath(xpath2).click()
                 self.swipe_up_lunbo(str(args[0]))
@@ -366,7 +339,7 @@ class ActionMe:
         :return:
         """
         x1 = self.get_size()[0] / 2
-        y1 = self.get_size()[1] / 10 * 4
+        y1 = self.get_size()[1] / 10 * 5
         y = self.get_size()[1] / 10 * 9
         self.driver.swipe(x1, y1, x1, y,1000)
 
@@ -378,7 +351,7 @@ class ActionMe:
         """
         x1 = self.get_size()[0] / 2
         y1 = self.get_size()[1] / 10 * 9
-        y = self.get_size()[1] / 10 * 4
+        y = self.get_size()[1] / 10 * 5
         self.driver.swipe(x1, y1, x1, y, 1000)
 
 if __name__ == '__main__':

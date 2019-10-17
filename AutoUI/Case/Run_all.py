@@ -9,6 +9,8 @@
 总执行case
 """
 import threading
+import time
+
 from AutoUI.Case.aibetCase_web import RunMethodWeb
 from AutoUI.Case.aibetCase_android import RunMethodAndroid
 from AutoUI.Case.aibetCase_ios import RunMethodIos
@@ -26,25 +28,24 @@ class RunAll:
         self.sendemail = SEmail()
 
     def Run_main(self):
-        thread_android = threading.Thread(target=self.android.run_method_adnroid(driver_name='android',sheetN=1,appname = app_name_android_aibet))
-        thread_ios = threading.Thread(target=self.ios.run_method_ios(driver_name='ios', sheetN=0, appname= app_name_ios_aibet))
-        thread_web = threading.Thread(target=self.web.run.run_method_web(driver_name='web',sheetN=2))
+        thread_android = self.android.run_method_adnroid(driver_name='android',sheetN=1,appname = app_name_android_aibet)
+        thread_ios = self.ios.run_method_ios(driver_name='ios', sheetN=0, appname= app_name_ios_aibet)
+        # thread_web = threading.Thread(target=self.web.run_method_web(driver_name='web',sheetN=2))
 
-        threads = [thread_android,thread_ios,thread_web]
+        pass_n = int(thread_android[0]+thread_ios[0])
+        fail_n = int(thread_android[1]+thread_ios[1])
 
-        for j in threads:
-            j.start()
-        pass_n = self.ios['pass_count'] + self.android['pass_count'] + self.web['pass_count']
-        fail_n = self.ios['fail_count'] + self.android['fail_count'] + self.web['fail_count']
         return pass_n,fail_n
 
     def send_email(self):
-        pass_n, fail_n = self.Run_main()
+        count = self.Run_main()
+        pass_n =count[0]
+        fail_n =count[1]
         make_zip(ErrorImage,ErrorImageZip)
         message = pass_fail_number(pass_n,fail_n)
+        print('---------------消息生成成功---------------')
         self.sendemail.Email_UiTest(message, aibetCase_file, OUT_FILENAME)
-
-
+        print('---------------邮件发送成功测试结束---------------')
 
 if __name__ == "__main__":
     r = RunAll()

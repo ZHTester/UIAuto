@@ -15,11 +15,12 @@ ErrorImageZip = '../Image/Error.zip'   # 所有的图片
 # Email相关变量
 MAIL_HOST = "secure.emailsrvr.com"  # 设置服务器
 MAIL_USER = "Function@seektopser.com"  # 用户名
-MAIL_PASS = "function@12345"  # 密码
+MAIL_PASS = "PZM6atcf"  # 密码
 PORT = "465"  # 发送端口
 SENDER = 'Function@seektopser.com'  # 发送者
-RECEIVERS = ['Function@seektopser.com','felix@seektopser.com']  # 接收邮件
-SUBJECT = 'IOS(UI)自动化测试报告' # 邮件主题内容
+# RECEIVERS = ['Function@seektopser.com','elma@seektopser.com']  # 接收邮件
+RECEIVERS = ['Function@seektopser.com','elma@seektopser.com ']  # 接收邮件
+SUBJECT = 'UI自动化测试报告' # 邮件主题内容
 OUT_FILENAME = 'AutoCase.xls'
 
 # app名称路径

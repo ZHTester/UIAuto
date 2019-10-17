@@ -53,19 +53,19 @@ class SEmail:
         message.attach(att1)
 
         # 上传图片压缩文件
-        if Zip_size(ErrorImage) is not 0:
-            message.attach(annex(ErrorImage))
+        if Zip_size(ErrorImageZip) is not 0:
+            message.attach(annex(ErrorImageZip))
 
         # 连接邮箱Server
         try:
             smtpObj = smtplib.SMTP_SSL(mail_host,port)
-            print ("邮件发送成功")
         except smtplib.SMTPException:
             smtpObj = smtplib.SMTP()
             smtpObj.connect(mail_host, port)
         smtpObj.login(mail_user, mail_pass)
         smtpObj.sendmail(sender, receivers, message.as_string())
         smtpObj.quit()
+        print("------------邮件发送成功------------")
 
 if __name__ == '__main__':
     send = SEmail()
