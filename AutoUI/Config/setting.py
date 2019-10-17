@@ -19,7 +19,8 @@ MAIL_PASS = "PZM6atcf"  # 密码
 PORT = "465"  # 发送端口
 SENDER = 'Function@seektopser.com'  # 发送者
 # RECEIVERS = ['Function@seektopser.com','elma@seektopser.com']  # 接收邮件
-RECEIVERS = ['Function@seektopser.com','elma@seektopser.com ']  # 接收邮件
+# RECEIVERS = ['Function@seektopser.com','elma@seektopser.com ']  # 接收邮件
+RECEIVERS = ['Function@seektopser.com']  # 接收邮件
 SUBJECT = 'UI自动化测试报告' # 邮件主题内容
 OUT_FILENAME = 'AutoCase.xls'
 

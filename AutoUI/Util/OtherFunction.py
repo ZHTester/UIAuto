@@ -16,27 +16,28 @@ from Util.table_write import out_table
 from AutoUI.Util.OperaExcel import OpExcel
 
 
-def pass_fail_number(pass_num,fail_num):
+def pass_fail_number(pass_list,fail_list):
     """
     发送消息
     :return:
     """
+    pass_num = float(pass_list)  # 百分比就是float 也就是浮点类型
+    fail_num = float(fail_list)
     count_num = pass_num + fail_num  # 测试用例总数
     # 90%
-    pass_result = pass_num / count_num * 100
-    fail_result = fail_num / count_num * 100
+    pass_result = "%.2f%%" % (pass_num / count_num * 100)
+    fail_result = "%.2f%%" % (fail_num / count_num * 100)
 
 
     content = ["[**********UI自动化测试**********]:",
-               "本次自动化接口测试共执行接口测试用例个数为%s个" % count_num,
-               "*通过个数为%s个*" % pass_num,
-               "*失败个数为%s个*" % fail_num,
-               "*通过率为%s*" % pass_result,
-               "*失败率为%s*"%fail_result
+               "本次自动化接口测试共执行接口测试用例个数为:%s" % count_num,
+               "*通过个数为:%s个*" % pass_num,
+               "*失败个数为:%s个*" % fail_num,
+               "*通过率为:%s*" % pass_result,
+               "*失败率为:%s*"%fail_result
                ]
 
-    msg = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'.join(content)
-
+    msg = '\n'.join(content)
     return  msg
 
 
@@ -109,5 +110,4 @@ def  wr():
 if __name__ == "__main__":
     a = pass_fail_number(89,21)
     print(a)
-    wr()
 

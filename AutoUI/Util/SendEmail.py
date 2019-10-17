@@ -15,7 +15,7 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from AutoUI.Config.setting import *
 from AutoUI.Util.ImageZip import annex
-from AutoUI.Util.OtherFunction import Zip_size
+from AutoUI.Util.OtherFunction import Zip_size, pass_fail_number
 
 
 class SEmail:
@@ -44,7 +44,7 @@ class SEmail:
 
         # 构造邮件主题内容
         text = send_message
-        body = MIMEText(text, _subtype="html", _charset="utf-8")
+        body = MIMEText(text,'plain','utf-8')
         message.attach(body)
 
         # 上传文件附件 测试case用例集合
@@ -52,9 +52,9 @@ class SEmail:
         att1["Content-Disposition"] = 'attachment; filename='+out_filename
         message.attach(att1)
 
-        # 上传图片压缩文件
-        if Zip_size(ErrorImageZip) is not 0:
-            message.attach(annex(ErrorImageZip))
+        # # 上传图片压缩文件
+        # if Zip_size(ErrorImageZip) is not 0:
+        #     message.attach(annex(ErrorImageZip))
 
         # 连接邮箱Server
         try:
@@ -69,3 +69,5 @@ class SEmail:
 
 if __name__ == '__main__':
     send = SEmail()
+    message = pass_fail_number(444.0, 11.0)
+    send.Email_UiTest(message, aibetCase_file, OUT_FILENAME)

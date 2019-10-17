@@ -51,5 +51,4 @@ class RunMethodWeb:
 if __name__ == "__main__":
     run = RunMethodWeb()
     r  = run.run_method_web(driver_name='web',sheetN=2)
-    a = r[0]+r[1]
 

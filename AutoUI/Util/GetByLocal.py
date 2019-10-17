@@ -62,7 +62,7 @@ class GetByLo:
             print('------------找不到元素错误用例行数--%s------' % row)
             self.data.write_value(row, '测试失败',self.sheetN)
             time.sleep(1)
-            print('-------------------我说你我说你我说你我说你我说你我说你我说你我说你我说你我说你------------------------')
+            print('-------------------写入文件成功错误------------------------')
             self.ScreenShot(row, file_s='../Image/Error_Img/元素找不到图片/')  # 错误截图
 
     def get_lun_element(self, row=None):
