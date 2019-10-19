@@ -30,11 +30,11 @@ def pass_fail_number(pass_list,fail_list):
 
 
     content = ["[**********UI自动化测试**********]:",
-               "本次自动化接口测试共执行接口测试用例个数为:%s" % count_num,
-               "*通过个数为:%s个*" % pass_num,
-               "*失败个数为:%s个*" % fail_num,
-               "*通过率为:%s*" % pass_result,
-               "*失败率为:%s*"%fail_result
+               "本次自动化UI测试共执行接口测试用例个数为:%s" % count_num,
+               "*1*通过个数为:%s个" % pass_num,
+               "*2*失败个数为:%s个" % fail_num,
+               "*3*通过率为:%s" % pass_result,
+               "*4*失败率为:%s"%fail_result
                ]
 
     msg = '\n'.join(content)
@@ -103,11 +103,9 @@ def  wr():
         if te != "测试失败":
             sheet_data.write(i, 0, "测试通过")
             write_data.save(r'../Config/test.xls')
+            write_data.close()
             print("写入成功")
 
-
-
 if __name__ == "__main__":
-    a = pass_fail_number(89,21)
-    print(a)
+    wr()
 

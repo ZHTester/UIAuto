@@ -8,6 +8,8 @@
 相关Case数据存储到Excel中便于数据和Case的相关维护
 """
 import time
+
+import time
 import xlrd
 from xlutils.copy import copy
 from AutoUI.Config.setting import *
@@ -73,6 +75,8 @@ if __name__ == '__main__':
     p = OpExcel(0)
     s = p.get_cell(1, 0)  # 获取单元格相关内容
     print(s)
+
+
 
 
 

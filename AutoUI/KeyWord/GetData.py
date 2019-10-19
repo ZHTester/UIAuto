@@ -85,15 +85,14 @@ class Getda:
 
 
 
-    def write_value(self, row, value,sheetN):
+    def write_value(self, row, value):
         """
         写入测试结果pass or filed
-        :param sheetN:
         :param row:
         :param value:
         :return:
         """
-        self.opera_excel.write_value(row, value,sheetN)
+        self.opera_excel.write_value(row, value,self.sheetN)
 
 
 if __name__ == '__main__':

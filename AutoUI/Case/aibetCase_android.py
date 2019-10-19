@@ -22,46 +22,37 @@ class RunMethodAndroid:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_adnroid(driver_name,appname,sheetN):
+    def run_method_adnroid(driver_name,appname,sheetN,deviceName):
         pass_count = []  # 统计成功个数
         total_count = []  # 总数
         data = Getda(sheetN)
         server = Serappium()
         server.main()  # 启动appium服务
-        action_method = ActionMe(driver_name, appname, sheetN)
+        action_method = ActionMe(driver_name, appname, sheetN,deviceName)
         caselines = data.get_case_lines()
         start = datetime.datetime.now()
         print("------------start time  used---------------:", start)
-
         for i in range(1, caselines):
             is_run = data.get_is_run(i)
             if is_run is True:
                 handle_step = data.get_handle_step(i)  # 执行方法
                 handle_value = data.get_handle_value(i)  # 操作值
-                result_test = data.get_is_result(i)  # 获取结果
-
                 # 自动化测试用例集执行
                 excute_method = getattr(action_method, handle_step)
-                print('-------------------------------', i)
+                print('-------------------------执行到行数-------------------------',i)
                 time.sleep(2)
                 excute_method(i, handle_value)
                 action_method.ScreenShot(i, handle_value, file_s='../Image/android_img/执行图片/')
                 total_count.append(i)
-                # 判断预期元素在当前页面是否存在
-                if result_test != "测试失败":
-                    data.write_value(i, '测试通过',sheetN)
-                    pass_count.append(i)
-
         end = datetime.datetime.now()
-        pass_count_num = len(pass_count)
-        fail_count_num = len(total_count) - len(pass_count)
         print("------------Time used---------------:", end - start)
 
-        return pass_count_num, fail_count_num
+        total = len(total_count)
+        return total
 
 if __name__ == "__main__":
     run = RunMethodAndroid()
-    run.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1)
+    run.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1,deviceName='681c4234')
 
 
 

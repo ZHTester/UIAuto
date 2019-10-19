@@ -9,7 +9,7 @@ web H5 相关api
 """
 import random
 import time
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from Base.BaseDr_Selenium import BaDriver
 from Util.GetByLocal import GetByLo
@@ -67,7 +67,6 @@ class ActionMe:
         if element is None:
             return '', "元素没找到"
         value = str(args[1])
-        print(value)
         if '.0' in value:
             value1 = int(args[1])
             element.send_keys(value1)
@@ -113,7 +112,6 @@ class ActionMe:
         element = self.agetbylo.get_element(int(args[0]))
         if element is None:
             return '', "元素没找到"
-        print(element)
         ActionChains(self.driver).move_to_element(element).perform()
 
 
@@ -122,11 +120,15 @@ class ActionMe:
         点击操作方法
         :return:
         """
-        element = self.agetbylo.get_element(int(args[0]))
-        if element is None:
-            return '', "元素没找到"
-        element.click()
-        time.sleep(1)
+        try:
+            element = self.agetbylo.get_element(int(args[0]))
+            if element is None:
+                return '', "元素没找到"
+            element.click()
+            time.sleep(1)
+        except ElementNotInteractableException:
+            print('--------------点击方法元素不可交互-----------')
+
 
     def WaitClick(self, *args):
         """
@@ -176,7 +178,6 @@ class ActionMe:
             return '', "元素没找到"
         else:
             text = element.get_attribute('value')
-            print(text)
             for i in text:
                 element.send_keys(Keys.BACKSPACE)
 
@@ -212,7 +213,6 @@ class ActionMe:
         :return:
         """
         value = int(args[1])
-        print(value,type(value))
         windows = self.driver.window_handles
         self.driver.switch_to_window(windows[value])
         time.sleep(2)

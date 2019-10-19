@@ -41,12 +41,12 @@ class GetByLo:
             local = self.data.get_element_key(row)
             by = local.split("<")[0]
             by_local = local.split('<')[1]
-            print(by_local)
         except IndexError:
             print('------------下标越界错误用例行数--%s------' % row)
             self.ScreenShot(row, file_s='../Image/Error_Img/下标越界图片/')  # 错误截图
         try:
             if by == 'xpath':
+                self.driver.find_element_by_xpath(by_local)
                 return self.driver.find_element_by_xpath(by_local)
             elif by == 'classname':
                 return self.driver.find_element_by_class_name(by_local)
@@ -59,11 +59,10 @@ class GetByLo:
             else:
                 return None
         except NoSuchElementException:
-            print('------------找不到元素错误用例行数--%s------' % row)
-            self.data.write_value(row, '测试失败',self.sheetN)
-            time.sleep(1)
-            print('-------------------写入文件成功错误------------------------')
             self.ScreenShot(row, file_s='../Image/Error_Img/元素找不到图片/')  # 错误截图
+            self.data.write_value(row, '测试失败')
+
+
 
     def get_lun_element(self, row=None):
         """
@@ -77,5 +76,6 @@ class GetByLo:
         return element1, element2
 
 
+
 if __name__ == '__main__':
-    pass
+    g = GetByLo(1,1)

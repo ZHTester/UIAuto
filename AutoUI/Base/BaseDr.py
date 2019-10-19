@@ -42,7 +42,7 @@ class BaDriver:
         return driver
 
     @staticmethod
-    def get_android_driver(appname):
+    def get_android_driver(appname,deviceName):
         """
         android Driver
         :return:
@@ -52,7 +52,7 @@ class BaDriver:
         capabilities = {
             "platformName": "Android",
             "automationName": "UiAutomator2",
-            "deviceName": "681c4234",
+            "deviceName": deviceName,
             "noReset":True,
             "app": "/Users/function/Downloads/UIAutioPage/" + appname
         }
@@ -61,9 +61,10 @@ class BaDriver:
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
 
-    def main_driver(self,name,app_name):
+    def main_driver(self,name,app_name,deviceName=None):
         """
         driver 任意选择
+        :param deviceName:
         :param name:
         :param app_name:
         :return:
@@ -71,7 +72,7 @@ class BaDriver:
         if name == 'ios':
             res = self.get_ios_driver(app_name)
         elif name == 'android':
-            res = self.get_android_driver(app_name)
+            res = self.get_android_driver(app_name,deviceName)
         else:
             res = "没有所存在的驱动，请重新尝试"
         return res
