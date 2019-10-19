@@ -29,34 +29,6 @@ class ActionMe:
         self.agetbylo = GetByLo(self.driver,sheetN)
         self.agetdata = Getda(sheetN)
 
-    def GetElement(self, *args):
-        """
-        判断元素是否存在
-        :param args:
-        :return:
-        """
-        flag = None
-        expect_element = self.agetdata.get_expect_element(int(args[0]))  # 获取预期元素
-        by = expect_element.split("<")[0]
-        by_local = expect_element.split('<')[1]
-        try:
-            if by == 'xpath':
-                self.driver.find_element_by_xpath(by_local)
-            elif by == 'classname':
-                self.driver.find_element_by_class_name(by_local)
-            elif by == 'css':
-                self.driver.find_element_by_css_selector(by_local)
-            elif by == 'id':
-                self.driver.find_element_by_id(by_local)
-            elif by == 'aid':
-                return self.driver.find_element_by_id(by_local)
-            elif by == 'link_text':
-                return self.driver.find_element_by_link_text(by_local)
-            flag = 1
-        except NoSuchElementException:
-            flag = 0
-        finally:
-            return flag
 
     def Input(self,*args):
         """
@@ -101,7 +73,12 @@ class ActionMe:
         end_x = postion[2]
         end_y = postion[3]
         print(start_x, start_y, end_x, end_y)
-        self.driver.swipe(start_x, start_y, end_x, end_y)
+        try:
+            self.driver.swipe(start_x, start_y, end_x, end_y)
+        except:
+            print("有异常，请检查")
+        finally:
+            pass
 
 
     def moveTo(self, *args):
@@ -120,27 +97,37 @@ class ActionMe:
         点击操作方法
         :return:
         """
+
+        element = self.agetbylo.get_element(int(args[0]))
+        if element is None:
+            return '', "元素没找到"
         try:
-            element = self.agetbylo.get_element(int(args[0]))
-            if element is None:
-                return '', "元素没找到"
             element.click()
-            time.sleep(1)
-        except ElementNotInteractableException:
-            print('--------------点击方法元素不可交互-----------')
+        except:
+            print("有异常，请检查")
+        finally:
+            pass
+
+
+    def getUrl(self, *args):
+        """
+        跳转url
+        :return:
+        """
+        value = str(args[1])
+        self.driver.get(value)
 
 
     def WaitClick(self, *args):
         """
-        点击操作方法
+        等待元素加载后点击
         :return:
         """
-        value = self.agetbylo.get_element(int(args[0]))
-        if value is None:
+        element = self.agetbylo.get_element(int(args[0]))
+        if element is None:
             return '', "元素没找到"
-        element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, str(value))))
         element.click()
-        time.sleep(1)
+        time.sleep(2)
 
     def Rinput(self,*args):
         """
@@ -178,6 +165,7 @@ class ActionMe:
             return '', "元素没找到"
         else:
             text = element.get_attribute('value')
+            print(text)
             for i in text:
                 element.send_keys(Keys.BACKSPACE)
 
@@ -199,7 +187,6 @@ class ActionMe:
         else:
             self.driver.switch_to_frame(element)
 
-
     def switchDefault(self, *args):
         """
         跳出iframe
@@ -214,8 +201,13 @@ class ActionMe:
         """
         value = int(args[1])
         windows = self.driver.window_handles
-        self.driver.switch_to_window(windows[value])
-        time.sleep(2)
+        try:
+            self.driver.switch_to_window(windows[value])
+            time.sleep(2)
+        except:
+            print("有异常，请检查")
+        finally:
+            pass
 
     def scrollDown(self, *args):
         """
@@ -238,7 +230,7 @@ class ActionMe:
         :return:
         """
         value = args[1]
-        print("等待" + str(value) + "秒，等待元素加载")
+        print("等待元素加载")
         time.sleep(int(value))
 
     def bowserBack(self, *args):

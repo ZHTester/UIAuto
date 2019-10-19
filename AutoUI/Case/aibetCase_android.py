@@ -23,7 +23,6 @@ class RunMethodAndroid:
 
     @staticmethod
     def run_method_adnroid(driver_name,appname,sheetN,deviceName):
-        pass_count = []  # 统计成功个数
         total_count = []  # 总数
         data = Getda(sheetN)
         server = Serappium()
