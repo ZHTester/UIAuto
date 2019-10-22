@@ -9,18 +9,12 @@ web H5 相关api
 """
 import random
 import time
-from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from Base.BaseDr_Selenium import BaDriver
 from Util.GetByLocal import GetByLo
 from KeyWord.GetData import Getda
 from Util.OtherFunction import creatFile
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.touch_actions import TouchActions
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
 
 class ActionMe:
     def __init__(self,driver_name,sheetN):
@@ -30,7 +24,8 @@ class ActionMe:
         self.agetdata = Getda(sheetN)
 
 
-    def Input(self,*args):
+
+    def Input(self, *args):
         """
         输入值方法
         :return:
@@ -45,21 +40,20 @@ class ActionMe:
         else:
             element.send_keys(value)
 
-
     def P_Click(self, *args):
         """
         坐标点击
         :return:
         """
+        pass
         element = args[1]
-        postion = element.split(",")
+        postion = element.split("<")
         x = postion[0]
         y = postion[1]
         if element is None:
             return '', "未读取到坐标"
         # print(element,type(element))
-        ActionChains(self.driver).move_by_offset(x,y).click().perform()
-
+        ActionChains(self.driver).move_by_offset(x, y).click().perform()
 
     def Move(self, *args):
         """
@@ -67,7 +61,7 @@ class ActionMe:
         :return:
         """
         offset = args[1]
-        postion = offset.split(",")
+        postion = offset.split("<")
         start_x = postion[0]
         start_y = postion[1]
         end_x = postion[2]
@@ -75,11 +69,8 @@ class ActionMe:
         print(start_x, start_y, end_x, end_y)
         try:
             self.driver.swipe(start_x, start_y, end_x, end_y)
-        except:
-            print("有异常，请检查")
-        finally:
-            pass
-
+        except Exception as e:
+            print("发生异常:" + str(e))
 
     def moveTo(self, *args):
         """
@@ -90,7 +81,6 @@ class ActionMe:
         if element is None:
             return '', "元素没找到"
         ActionChains(self.driver).move_to_element(element).perform()
-
 
     def OnClick(self, *args):
         """
@@ -103,11 +93,8 @@ class ActionMe:
             return '', "元素没找到"
         try:
             element.click()
-        except:
-            print("有异常，请检查")
-        finally:
-            pass
-
+        except Exception as e:
+            print("发生异常:" + str(e))
 
     def getUrl(self, *args):
         """
@@ -117,19 +104,21 @@ class ActionMe:
         value = str(args[1])
         self.driver.get(value)
 
-
     def WaitClick(self, *args):
         """
         等待元素加载后点击
         :return:
         """
-        element = self.agetbylo.get_element(int(args[0]))
-        if element is None:
-            return '', "元素没找到"
-        element.click()
-        time.sleep(2)
+        try:
+            element = self.agetbylo.get_element(int(args[0]))
+            if element is None:
+                return '', "元素没找到"
+            element.click()
+            time.sleep(2)
+        except Exception as e:
+            print("发生异常:" + str(e))
 
-    def Rinput(self,*args):
+    def Rinput(self, *args):
         """
         随机生成数字字母
         :return:
@@ -155,7 +144,7 @@ class ActionMe:
             element.click()
             time.sleep(3)
 
-    def clear(self, *args):
+    def W_clear(self, *args):
         """
         清空输入框
         :return:
@@ -204,10 +193,8 @@ class ActionMe:
         try:
             self.driver.switch_to_window(windows[value])
             time.sleep(2)
-        except:
-            print("有异常，请检查")
-        finally:
-            pass
+        except Exception as e:
+            print("发生异常:" + str(e))
 
     def scrollDown(self, *args):
         """
@@ -238,7 +225,6 @@ class ActionMe:
         切换浏览器页签
         :return:
         """
-        time.sleep(2)
         self.driver.back()
         time.sleep(2)
 
@@ -275,15 +261,16 @@ class ActionMe:
         else:
             element.click()
 
-    def ScreenShot(self, *args,file_s=None):
+    def ScreenShot(self, *args, file_s=None):
         """
         截图方法
         :return:
         """
         i = int(args[0])
-        imageName = str('ID' + str(i) +self.agetdata.get_caseName(i))
+        imageName = str('ID' + str(i) + self.agetdata.get_caseName(i))
         file_path = creatFile(file_s)
         self.driver.get_screenshot_as_file(file_path + imageName + '.png')
+
 
 if __name__ == '__main__':
     pass

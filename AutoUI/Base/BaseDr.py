@@ -36,7 +36,6 @@ class BaDriver:
             "app": "/Users/function/Downloads/UIAutioPage/" + app_name
               }
 
-        print(capabilities['app'])
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
@@ -59,6 +58,7 @@ class BaDriver:
 
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
+
         return driver
 
     def main_driver(self,name,app_name,deviceName=None):

@@ -45,8 +45,11 @@ class GetByLo:
             print('------------下标越界错误用例行数--%s------' % row)
             self.ScreenShot(row, file_s='../Image/Error_Img/下标越界图片/')  # 错误截图
         try:
-            if by == 'xpath':
-                self.driver.find_element_by_xpath(by_local)
+            if by == 'androidp':
+                return self.driver.find_element_by_android_uiautomator('new UiSelector().text('+by_local+')')
+            elif by == 'iosp':
+                return self.driver.find_element_by_ios_predicate(by_local)  # 元素属性定位方式
+            elif by == 'xpath':
                 return self.driver.find_element_by_xpath(by_local)
             elif by == 'classname':
                 return self.driver.find_element_by_class_name(by_local)

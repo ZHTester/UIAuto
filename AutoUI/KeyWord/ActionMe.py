@@ -162,7 +162,7 @@ class ActionMe:
             value = str(args[1]).split('<')
             X = int(value[0])
             Y = int(value[1])
-            for i in range(20):
+            for i in range(10):
                 TouchAction(self.driver).press(x=X, y=Y).release().perform()
         except Exception as e:
             print('******找不到坐标*****',int(args[0]))

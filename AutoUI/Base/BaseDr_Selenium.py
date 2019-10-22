@@ -10,7 +10,8 @@
 """
 from appium import webdriver as H5
 from selenium import webdriver as web
-import os,time
+
+from Util.WriteYaml import WriteYamlCommand
 
 
 class BaDriver:
@@ -20,7 +21,7 @@ class BaDriver:
         获取浏览器 web Driver
         :return:
         """
-        path = "../Base/webDriver/chromedriver.exe"
+        path = "../Base/webDriver/chromedriver"
         driver = web.Chrome(path)
         driver.maximize_window()
         driver.get("http://www.aalgds.com/login/?type=login")
@@ -33,10 +34,12 @@ class BaDriver:
         获取浏览器 H5 Driver
         :return:
         """
+        write_file = WriteYamlCommand()
+        port = write_file.get_value('port')
         capabilities = {
             "platformName": "Android",
             "deviceName": "973QAEVEB8CS8",
-            "platformVersion": "9.0",
+            "platformVersion": "9",
             'noReset': 'true',
             "browserName": "Chrome",
             "unicodeKeyboard": "true",
@@ -44,7 +47,7 @@ class BaDriver:
             "sessionOverride": "true",
             "appActivity": ".BrowserActivity"
         }
-        driver = H5.Remote("http://127.0.0.1:4723/wd/hub", capabilities)
+        driver = H5.Remote("http://127.0.0.1:" + port + "/wd/hub", capabilities)
         driver.get("http://m.aalgds.com/")
         return driver
 
