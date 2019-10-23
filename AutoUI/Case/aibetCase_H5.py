@@ -35,7 +35,7 @@ class RunMethodH5:
                 print('-------------------------执行到行数-------------------------', i)
                 time.sleep(2)
                 excute_method(i, handle_value)
-                action_method.ScreenShot(i, handle_value, file_s='../Image/android_img/执行图片/')
+                action_method.ScreenShot(i, handle_value, file_s='../Image/H5_img/执行图片/')
                 total_count.append(i)
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)

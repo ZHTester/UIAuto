@@ -144,7 +144,7 @@ class ActionMe:
             element.click()
             time.sleep(3)
 
-    def W_clear(self, *args):
+    def clear(self, *args):
         """
         清空输入框
         :return:
