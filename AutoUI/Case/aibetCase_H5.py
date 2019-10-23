@@ -11,12 +11,12 @@ from Config.setting import *
 from Util.AppiumServer import Serappium
 
 
-class RunMethodWeb:
+class RunMethodH5:
     def __getattr__(self, item):
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_web(driver_name,sheetN):
+    def run_method_H5(driver_name,sheetN):
         total_count = []  # 总数
         data = Getda(sheetN)
         server = Serappium()
@@ -44,5 +44,5 @@ class RunMethodWeb:
         return total
 
 if __name__ == "__main__":
-    run = RunMethodWeb()
-    run.run_method_web(driver_name='H5',sheetN=3)
+    run = RunMethodH5()
+    run.run_method_H5(driver_name='H5',sheetN=3)

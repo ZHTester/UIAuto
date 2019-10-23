@@ -30,7 +30,7 @@ def pass_fail_number(pass_list,fail_list):
 
 
     content = ["[**********UI自动化测试**********]:",
-               "本次自动化UI测试共执行接口测试用例个数为:%s" % count_num,
+               "本次UI自动化测试共执行测试用例个数为:%s" % count_num,
                "*1*通过个数为:%s个" % pass_num,
                "*2*失败个数为:%s个" % fail_num,
                "*3*通过率为:%s" % pass_result,

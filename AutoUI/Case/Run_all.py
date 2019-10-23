@@ -18,6 +18,7 @@ from AutoUI.Case.aibetCase_ios import RunMethodIos
 from AutoUI.Config.setting import *
 from AutoUI.Util.ImageZip import make_zip
 from AutoUI.Util.OtherFunction import pass_fail_number
+from Case.aibetCase_H5 import RunMethodH5
 from KeyWord.GetData import Getda
 from Util.SendEmail import SEmail
 
@@ -27,19 +28,17 @@ class RunAll:
         self.ios = RunMethodIos()
         self.android = RunMethodAndroid()
         self.web = RunMethodWeb()
+        self.h5 = RunMethodH5()
         self.sendemail = SEmail()
 
     def Run_main(self):
         pass_count = []
+        thread_h5 = self.h5.run_method_H5(driver_name='H5',sheetN=3)
+        thread_web = self.web.run_method_web(driver_name='web',sheetN=2)
         thread_ios = self.ios.run_method_ios(driver_name='ios', sheetN=0, appname=app_name_ios_aibet)
         thread_android = self.android.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1,deviceName='681c4234')
-        thread_web = self.web.run_method_web(driver_name='web',sheetN=2)
 
-        # excutor = ThreadPoolExecutor(max_workers=2)
-        # task1 = excutor.submit(self.ios.run_method_ios(driver_name='ios', sheetN=0, appname= app_name_ios_aibet))  # 向线程池中添加函数
-        # task2 = excutor.submit(self.android.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1,deviceName='681c4234'))  # 向线程池中添加函数
-
-        for sheeti in range(3):
+        for sheeti in range(4):
             data = Getda(sheeti)
             caselines = data.get_case_lines()
             for i in range(1, caselines):
@@ -52,7 +51,7 @@ class RunAll:
                         pass_count.append(i)
 
         pass_n = len(pass_count)
-        fail_n = thread_android+thread_ios+thread_web - pass_n
+        fail_n = thread_android+thread_ios+thread_web+thread_h5 - pass_n
         print('----------------------------------------',fail_n)
         return pass_n,fail_n
 
