@@ -15,11 +15,10 @@ ErrorImageZip = '../Image/Error.zip'   # 所有的图片
 # Email相关变量
 MAIL_HOST = "secure.emailsrvr.com"  # 设置服务器
 MAIL_USER = "Function@seektopser.com"  # 用户名
-MAIL_PASS = "function@12345"  # 密码
+MAIL_PASS = "function@110"  # 密码
 PORT = "465"  # 发送端口
 SENDER = 'Function@seektopser.com'  # 发送者
 RECEIVERS = ['Function@seektopser.com','elma@seektopser.com','leo@seektopser.com','felix@seektopser.com']  # 接收邮件
-# RECEIVERS = ['Function@seektopser.com']  # 接收邮件
 SUBJECT = "BB项目娱乐端Android、IOS、Web H5 UI自动化"
 OUT_FILENAME = 'AutoCase.xls'
 

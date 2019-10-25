@@ -32,7 +32,7 @@ class BaDriver:
             "platformName": "iOS",
             'newCommandTimeout': "2000",
             "platformVersion": "12.4",
-            "deviceName": "iPhone Xs Max",
+            "deviceName": "iPhone Xʀ",
             "app": "/Users/function/Downloads/UIAutioPage/" + app_name
               }
 

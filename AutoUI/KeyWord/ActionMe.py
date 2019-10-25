@@ -354,5 +354,6 @@ class ActionMe:
         y = self.get_size()[1] / 10 * 5
         self.driver.swipe(x1, y1, x1, y, 1000)
 
+
 if __name__ == '__main__':
     pass
