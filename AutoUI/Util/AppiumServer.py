@@ -22,17 +22,25 @@ class Serappium:
         self.device_list = self.get_devices()
         self.write_file = WriteYamlCommand()
 
-    @staticmethod
-    def get_devices():
+    def get_devices(self):
         """
         获取设备信息
         :return:
         """
-        # devicesli = ['iPhone Xʀ']
-        devicesli = ['iPhone Xʀ','192.168.56.102:5555']
-        return devicesli
+        devices_list = []
+        result_list = self.Terminal.Excute_terminal_result('adb devices')
+        if len(result_list) >= 2:
+            for i in result_list:
+                if 'List' in i:
+                    continue
+                devices_info = i.split('\t') or i.split('\n')
+                if devices_info[1] == 'device':
+                    devices_list.append(devices_info[0])
+            return devices_list
+        else:
+            return None
 
-    def create_post_list(self, start_port):
+    def create_port_list(self, start_port):
         """
         创建可用端口
         :param start_port:
@@ -53,11 +61,15 @@ class Serappium:
         """
         # appium -p 4700 -bp 4701 -U iPhone Xr
         command_list = []
-        appium_port_list = self.create_post_list(4700)
-        command = "appium -p " + str(appium_port_list[i])
+        appium_port_list = self.create_port_list(4700)
+        bootstrap_port_list = self.create_port_list(4900)
+        device_list = self.device_list
+        command = "appium -p " + str(appium_port_list[i]) + " -bp " + str(bootstrap_port_list[i]) + " -U " + \
+                  device_list[i]
         command_list.append(command)
-        self.write_file.write_data(str(appium_port_list[i]))
-        return command_list  # 返回生成的命令
+        self.write_file.write_data(i, device_list[i], str(bootstrap_port_list[i]), str(appium_port_list[i]))
+
+        return command_list
 
     def start_server(self, i):
         """

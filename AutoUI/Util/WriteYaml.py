@@ -22,30 +22,34 @@ class WriteYamlCommand:
             data = yaml.load(fr, Loader=yaml.FullLoader)
         return data
 
-    def get_value(self, key):
-        """
+    def get_value(self, key, port):
+        '''
         获取value
-        """
+        '''
         data = self.read_data()
-        value = data[key]
+        value = data[key][port]
         return value
 
-    def write_data(self, port):
+    def write_data(self,i,device,bp,port):
         """
         写入数据
         """
-        data = self.join_data(port)
+        data = self.join_data(i,device,bp,port)
         with open("../Config/AppiumPort.yaml", "a") as fr:
             yaml.dump(data, fr)
 
-    def join_data(self, port):
+    def join_data(self,i,device,bp,port):
         """
         拼接启动命令
         :param port: 端口号
         :return: 返回拼接命令行
         """
         data = {
+            "user_info_" + str(i): {
+            "deviceName": device,
+            "bp": bp,
             "port": port
+            }
         }
         return data
 
@@ -69,8 +73,8 @@ class WriteYamlCommand:
 
 if __name__ == "__main__":
     w = WriteYamlCommand()
-    c = w.get_value('port')
-    print(c)
+    a = w.get_file_lines()
+    print(a)
 
 
 

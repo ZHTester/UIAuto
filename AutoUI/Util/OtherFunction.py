@@ -12,7 +12,6 @@ import os
 import zipfile
 from xlutils.copy import copy
 import xlrd
-from Util.table_write import out_table
 from AutoUI.Util.OperaExcel import OpExcel
 
 

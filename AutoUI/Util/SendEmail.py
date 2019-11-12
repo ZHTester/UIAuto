@@ -52,7 +52,7 @@ class SEmail:
         att1["Content-Disposition"] = 'attachment; filename='+out_filename
         message.attach(att1)
 
-        # # 上传图片压缩文件
+        # 上传图片压缩文件
         if Zip_size(ErrorImageZip) is not 0:
             message.attach(annex(ErrorImageZip))
 

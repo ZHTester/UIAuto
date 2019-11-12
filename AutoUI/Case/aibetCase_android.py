@@ -22,12 +22,12 @@ class RunMethodAndroid:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_adnroid(driver_name,appname,sheetN,deviceName):
+    def run_method_adnroid(driver_name,appname,sheetN):
         total_count = []  # 总数
         data = Getda(sheetN)
         server = Serappium()
         server.main()  # 启动appium服务
-        action_method = ActionMe(driver_name, appname, sheetN,deviceName)
+        action_method = ActionMe(driver_name, appname, sheetN)
         caselines = data.get_case_lines()
         start = datetime.datetime.now()
         print("------------start time  used---------------:", start)
@@ -39,7 +39,7 @@ class RunMethodAndroid:
                 # 自动化测试用例集执行
                 excute_method = getattr(action_method, handle_step)
                 print('-------------------------执行到行数-------------------------',i)
-                time.sleep(2)
+                time.sleep(3)
                 excute_method(i, handle_value)
                 action_method.ScreenShot(i, handle_value, file_s='../Image/android_img/执行图片/')
                 total_count.append(i)

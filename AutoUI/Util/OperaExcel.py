@@ -9,7 +9,6 @@
 """
 import time
 
-import time
 import xlrd
 from xlutils.copy import copy
 from AutoUI.Config.setting import *
@@ -74,7 +73,7 @@ class OpExcel:
 if __name__ == '__main__':
     p = OpExcel(0)
     s = p.get_cell(1, 0)  # 获取单元格相关内容
-    print(s)
+    print("=========----case名称is{0}--------======".format(s))
 
 
 

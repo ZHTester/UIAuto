@@ -41,27 +41,32 @@ class BaDriver:
         return driver
 
     @staticmethod
-    def get_android_driver(appname,deviceName):
+    def get_android_driver(appname):
         """
         android Driver
         :return:
         """
+        global port, capabilities
         write_file = WriteYamlCommand()
-        port = write_file.get_value('port')
-        capabilities = {
-            "platformName": "Android",
-            "automationName": "UiAutomator2",
-            "deviceName": deviceName,
-            "noReset":True,
-            "app": "/Users/function/Downloads/UIAutioPage/" + appname
-        }
+        Num = write_file.get_file_lines()
+        for i in range(Num):
+            devices_name = write_file.get_value('user_info_' + str(i), 'deviceName')
+            port = write_file.get_value('user_info_' + str(i), 'port')
+            capabilities = {
+                "platformName": "Android",
+                "automationName": "UiAutomator2",
+                "deviceName": devices_name,
+                "noReset":True,
+                'newCommandTimeout': "2000",
+                "app": "/Users/function/Downloads/UIAutioPage/" + appname
+            }
 
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
 
         return driver
 
-    def main_driver(self,name,app_name,deviceName=None):
+    def main_driver(self,name,app_name):
         """
         driver 任意选择
         :param deviceName:
@@ -72,7 +77,7 @@ class BaDriver:
         if name == 'ios':
             res = self.get_ios_driver(app_name)
         elif name == 'android':
-            res = self.get_android_driver(app_name,deviceName)
+            res = self.get_android_driver(app_name)
         else:
             res = "没有所存在的驱动，请重新尝试"
         return res

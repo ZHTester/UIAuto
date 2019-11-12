@@ -23,7 +23,7 @@ class OsTerminal:
         for i in result:
             if i == '\n':  # 遇到空格继续取值跳过空格
                 continue
-            result_list.append(i.strip('\n'))  # 以空格分割取出值
+            result_list.append(i.strip('\n').strip('\\'))  # 以空格分割取出值
         return result_list
 
     def Excute_terminal(self, command):
@@ -37,7 +37,8 @@ class OsTerminal:
 
 if __name__ == "__main__":
     ter = OsTerminal()
-    val = os.system('top')
-    # print(ter.Excute_terminal_result(val))  # 启动服务端服务
+    result = os.popen('idevice_id -l').readlines()
+    print(result)
+    # print(ter.Excute_terminal_result(''))  # 启动服务端服务
 
 

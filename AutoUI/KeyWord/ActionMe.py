@@ -22,9 +22,9 @@ from AutoUI.Util.OtherFunction import creatFile
 
 
 class ActionMe:
-    def  __init__(self,driver_name,appname,sheetN,deviceName=None):
+    def  __init__(self,driver_name,appname,sheetN):
         Basedriver = BaDriver()
-        self.driver = Basedriver.main_driver(driver_name,appname,deviceName)
+        self.driver = Basedriver.main_driver(driver_name,appname)
         self.agetbylo = GetByLo(self.driver,sheetN)
         self.agetdata = Getda(sheetN)
 

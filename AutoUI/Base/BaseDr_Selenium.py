@@ -34,11 +34,15 @@ class BaDriver:
         获取浏览器 H5 Driver
         :return:
         """
+        global port, devices_name
         write_file = WriteYamlCommand()
-        port = write_file.get_value('port')
+        Num = write_file.get_file_lines()
+        for i in range(1,Num):
+            devices_name = write_file.get_value('user_info_' + str(i), 'deviceName')
+            port = write_file.get_value('user_info_' + str(i), 'port')
         capabilities = {
             "platformName": "Android",
-            "deviceName": "973QAEVEB8CS8",
+            "deviceName": devices_name,
             "platformVersion": "9",
             'noReset': 'true',
             "browserName": "Chrome",

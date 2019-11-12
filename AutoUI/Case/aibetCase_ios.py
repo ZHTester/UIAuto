@@ -21,9 +21,9 @@ class RunMethodIos:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_ios(driver_name,appname,sheetN):
+    def run_method_ios(driver_name,appname,sheetN,file_path=None):
         total_count = [] # 总数
-        data = Getda(sheetN)
+        data = Getda(sheetN,file_path)
         server = Serappium()
         server.main()  #  启动appium服务
         action_method = ActionMe(driver_name,appname,sheetN)
