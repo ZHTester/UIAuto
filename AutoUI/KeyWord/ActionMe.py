@@ -11,6 +11,7 @@ import random
 import time
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver import ActionChains
 
 from AutoUI.Base.BaseDr import BaDriver
 from AutoUI.Util.GetByLocal import GetByLo
@@ -22,11 +23,111 @@ from AutoUI.Util.OtherFunction import creatFile
 
 
 class ActionMe:
-    def  __init__(self,driver_name,appname,sheetN):
+    def  __init__(self,driver_name,sheetN,i_num,appname=None,file_path=None):
         Basedriver = BaDriver()
-        self.driver = Basedriver.main_driver(driver_name,appname)
-        self.agetbylo = GetByLo(self.driver,sheetN)
+        self.driver = Basedriver.main_driver(driver_name,appname,i_num)
+        self.agetbylo = GetByLo(self.driver,sheetN,file_path)
         self.agetdata = Getda(sheetN)
+
+    ##############################体育部分从这开始#######################################
+
+    def ClickElement(self, *args):
+        """
+        元素点击
+        :param args:
+        :return:
+        """
+        global tmp
+        element = self.agetdata.get_element_key(int(args[0]))
+        by = element.split("<")[0]
+        by_local = element.split('<')[1]
+        try:
+            if by == 'xpath':
+                tmp = self.driver.find_element_by_xpath(by_local)
+            elif by == 'classname':
+                tmp = self.driver.find_element_by_class_name(by_local)
+            elif by == 'css':
+                tmp = self.driver.find_element_by_css_selector(by_local)
+            elif by == 'id':
+                tmp = self.driver.find_element_by_id(by_local)
+            elif by == 'aid':
+                tmp = self.driver.find_element_by_id(by_local)
+            elif by == 'link_text':
+                tmp = self.driver.find_element_by_link_text(by_local)
+            tmp.click()
+            time.sleep(1)
+        except NoSuchElementException:
+            print('元素不存在')
+
+    def findElements(self, *args):
+        """
+        元素点击
+        :param args:
+        :return:
+        """
+        global tmp
+        element = self.agetdata.get_element_key(int(args[0]))
+        # by = element.split("<")[0]
+        by_local = element.split('<')[1]
+        try:
+            tmp = self.driver.find_elements_by_class_name(by_local)
+            if len(tmp) >= 4:
+                print("赛事多于两场，可以进行串关投注")
+                return "ok"
+            else:
+                print("赛事小于两场，不能进行串关投注")
+                return "no"
+        except NoSuchElementException:
+            print('元素不存在')
+
+    def move(self, *args):
+        """
+        滑动
+        :return:
+        """
+        offset = args[1]
+        postion = offset.split("<")
+        start_x = postion[0]
+        start_y = postion[1]
+        end_x = postion[2]
+        end_y = postion[3]
+        print(start_x, start_y, end_x, end_y)
+        try:
+            self.driver.swipe(start_x, start_y, end_x, end_y)
+        except Exception as e:
+            print("发生异常:" + str(e))
+
+    def toWebview(self, *args):
+        """
+        跳转到webview
+        :return:
+        """
+        value = str(args[1])
+        self.driver.switch_to.context(value)
+
+    def toNative(self, *args):
+        """
+        跳转到app
+        :return:
+        """
+        self.driver.switch_to.context("NATIVE_APP")
+
+    def pclick(self, *args):
+        """
+        坐标点击
+        :return:
+        """
+        pass
+        element = args[1]
+        postion = element.split("<")
+        x = postion[0]
+        y = postion[1]
+        if element is None:
+            return '', "未读取到坐标"
+        # print(element,type(element))
+        ActionChains(self.driver).move_by_offset(x, y).click().perform()
+
+##############################体育部分在这结束#######################################
 
     def JudgeSealElement(self, *args):
         """
@@ -353,6 +454,10 @@ class ActionMe:
         y1 = self.get_size()[1] / 10 * 9
         y = self.get_size()[1] / 10 * 5
         self.driver.swipe(x1, y1, x1, y, 1000)
+
+"""
+=================================--------------appium------------------==========================
+"""
 
 
 if __name__ == '__main__':

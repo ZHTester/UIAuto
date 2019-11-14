@@ -1,37 +1,39 @@
 import multiprocessing
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
 
-from AutoUI.Case.aibetCase_web import RunMethodWeb
-from AutoUI.Case.aibetCase_android import RunMethodAndroid
-from AutoUI.Case.aibetCase_ios import RunMethodIos
+from AutoUI.Case.demo0001 import RunMethodAll
 from AutoUI.Config.setting import *
-from Case.aibetCase_H5 import RunMethodH5
-from Util.SendEmail import SEmail
+from Util.AppiumServer import Serappium
 
 
 class RunAll:
     def __init__(self):
-        self.ios = RunMethodIos()
-        self.android = RunMethodAndroid()
-        self.web = RunMethodWeb()
-        self.h5 = RunMethodH5()
-        self.sendemail = SEmail()
+        self.all = RunMethodAll()
 
     def Run_main(self):
-        self.android.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1)
+        self.all.run_method_All(driver_name='android', sheetN=4, Run_name='android',i_num=1, appname=app_name_android_sport, time_sleep=2)
+        # self.all.run_method_All(driver_name='android',  sheetN=1, Run_name='android',appname="ballbet.apk",time_sleep=2)
+        # self.all.run_method_All(driver_name='H5', sheetN=3, Run_name='H5',time_sleep=2)
 
     def Run_main01(self):
-        self.h5.run_method_H5(driver_name='H5',sheetN=3)
-
-
+        # self.all.run_method_All(driver_name='web',sheetN=2,Run_name='web',time_sleep=2)
+        self.all.run_method_All(driver_name='android', sheetN=5, Run_name='android', i_num=0,appname=app_name_android_sport,time_sleep=2)
 
 
 if __name__ == '__main__':
+    server = Serappium()
+    server.main()  # 启动appium服务
     c = RunAll()
-    threads = [threading.Thread(target=c.Run_main),
-               threading.Thread(target=c.Run_main01)]
+
+
+    threads = [
+        multiprocessing.Process(target=c.Run_main01),
+        multiprocessing.Process(target=c.Run_main),
+        # threading.Thread(target=c.Run_main01),
+        # threading.Thread(target=c.Run_main)
+               ]
     for t in threads:
         # 启动线程
         t.start()
+

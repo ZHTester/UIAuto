@@ -9,17 +9,16 @@
 """
 import time
 
-from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
-from AutoUI.KeyWord.GetData import Getda
+from selenium.common.exceptions import NoSuchElementException
 from AutoUI.KeyWord.GetData import Getda
 from Util.OtherFunction import creatFile
 
 
 class GetByLo:
-    def __init__(self, driver, sheetN):
+    def __init__(self, driver, sheetN, file_path=None):
         self.driver = driver
         self.sheetN = sheetN
-        self.data = Getda(sheetN)
+        self.data = Getda(sheetN,file_path)
 
 
     def ScreenShot(self, row, file_s=None):

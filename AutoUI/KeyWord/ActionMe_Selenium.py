@@ -9,6 +9,8 @@ web H5 相关api
 """
 import random
 import time
+
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from Base.BaseDr_Selenium import BaDriver
 from Util.GetByLocal import GetByLo
@@ -16,14 +18,39 @@ from KeyWord.GetData import Getda
 from Util.OtherFunction import creatFile
 from selenium.webdriver.common.action_chains import ActionChains
 
-class ActionMe:
-    def __init__(self,driver_name,sheetN):
+class ActionMeSelenium:
+    def __init__(self,driver_name,sheetN,file_path=None):
         Basedriver = BaDriver()
         self.driver = Basedriver.main_driver(driver_name)
-        self.agetbylo = GetByLo(self.driver,sheetN)
-        self.agetdata = Getda(sheetN)
+        self.agetbylo = GetByLo(self.driver,sheetN,file_path)
+        self.agetdata = Getda(sheetN,file_path)
 
-
+    def GetElement(self, *args):
+        """
+        判断元素是否存在
+        :param args:
+        :return:
+        """
+        global tmp
+        element = self.agetbylo.get_element(int(args[0]))
+        by = element.split("<")[0]
+        by_local = element.split('<')[1]
+        try:
+            if by == 'xpath':
+                tmp = self.driver.find_element_by_xpath(by_local)
+            elif by == 'classname':
+                tmp = self.driver.find_element_by_class_name(by_local)
+            elif by == 'css':
+                tmp = self.driver.find_element_by_css_selector(by_local)
+            elif by == 'id':
+                tmp = self.driver.find_element_by_id(by_local)
+            elif by == 'aid':
+                tmp = self.driver.find_element_by_id(by_local)
+            elif by == 'link_text':
+                tmp = self.driver.find_element_by_link_text(by_local)
+            tmp.click()
+        except NoSuchElementException:
+            print('元素不存在')
 
     def Input(self, *args):
         """
@@ -57,7 +84,7 @@ class ActionMe:
 
     def Move(self, *args):
         """
-        上下滑动
+        滑动
         :return:
         """
         offset = args[1]
@@ -87,12 +114,12 @@ class ActionMe:
         点击操作方法
         :return:
         """
-
-        element = self.agetbylo.get_element(int(args[0]))
-        if element is None:
-            return '', "元素没找到"
         try:
+            element = self.agetbylo.get_element(int(args[0]))
+            if element is None:
+                return '', "元素没找到"
             element.click()
+            time.sleep(1)
         except Exception as e:
             print("发生异常:" + str(e))
 
@@ -114,7 +141,7 @@ class ActionMe:
             if element is None:
                 return '', "元素没找到"
             element.click()
-            time.sleep(2)
+            time.sleep(3)
         except Exception as e:
             print("发生异常:" + str(e))
 

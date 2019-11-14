@@ -20,6 +20,7 @@ class OpExcel:
             self.file_path = aibetCase_file
         else:
             self.file_path = file_path
+
         self.excel = self.get_excel()
         self.data = self.get_sheets(Num)
 

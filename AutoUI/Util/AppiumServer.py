@@ -61,19 +61,19 @@ class Serappium:
         """
         # appium -p 4700 -bp 4701 -U iPhone Xr
         command_list = []
-        appium_port_list = self.create_port_list(4700)
-        bootstrap_port_list = self.create_port_list(4900)
+        appium_port_list = self.create_port_list(4720)
+        bootstrap_port_list = self.create_port_list(4920)
+        systemPort = self.create_port_list(8210)
         device_list = self.device_list
         command = "appium -p " + str(appium_port_list[i]) + " -bp " + str(bootstrap_port_list[i]) + " -U " + \
                   device_list[i]
         command_list.append(command)
-        self.write_file.write_data(i, device_list[i], str(bootstrap_port_list[i]), str(appium_port_list[i]))
-
+        self.write_file.write_data(i, device_list[i], str(bootstrap_port_list[i]), str(appium_port_list[i]),systemPort)
+        print(command_list)
         return command_list
 
     def start_server(self, i):
         """
-
         :param i:
         :return:
         """
@@ -85,9 +85,9 @@ class Serappium:
         杀掉Appium的进程 清空内存
         :return:
         """
-        server_list = self.Terminal.Excute_terminal_result('ps aux | grep node')
+        server_list = self.Terminal.Excute_terminal_result('ps -ef | grep node')
         if len(server_list) > 0:
-            self.Terminal.Excute_terminal('kill -F -PID node')
+            self.Terminal.Excute_terminal("ps -ef | grep node | awk '{print $2}' | xargs kill -9")
 
     def main(self):
         """
@@ -95,6 +95,7 @@ class Serappium:
         :return:
         """
         self.write_file.clear_data()
+        self.kill_server()
         thread_list = []
         for i in range(len(self.device_list)):
             appium_start = multiprocessing.Process(target=self.start_server, args=(i,))
@@ -106,5 +107,5 @@ class Serappium:
 
 if __name__ == '__main__':
     s = Serappium()
-    s.main()
+    print(s.create_command_list(0))
 

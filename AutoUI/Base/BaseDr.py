@@ -16,57 +16,64 @@ from appium import webdriver
 
 from AutoUI.Util.WriteYaml import WriteYamlCommand
 from Util.AppiumServer import Serappium
+from Util.CheckPort import Cport
 
 
 class BaDriver:
-    @staticmethod
-    def get_ios_driver(app_name):
+    def get_ios_driver(self,app_name):
         """
         ios Driver
         :return:
         """
+        global port, capabilities
         write_file = WriteYamlCommand()
-        port = write_file.get_value('port')
+        Num = write_file.get_file_lines()
+        devices_name = write_file.get_value('user_info_' + str(0), 'deviceName')
+        port = write_file.get_value('user_info_' + str(0), 'port')
         capabilities = {
             "automationName": "XCUITest",
             "platformName": "iOS",
             'newCommandTimeout': "2000",
             "platformVersion": "12.4",
             "deviceName": "iPhone Xʀ",
-            "app": "/Users/function/Downloads/UIAutioPage/" + app_name
-              }
+            "app": '../Base/webDriver/' + app_name
 
+            }
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
 
+
     @staticmethod
-    def get_android_driver(appname):
+    def get_android_driver(appname,i_num):
         """
         android Driver
         :return:
         """
-        global port, capabilities
+        global port, capabilities, devices_name
         write_file = WriteYamlCommand()
-        Num = write_file.get_file_lines()
-        for i in range(Num):
-            devices_name = write_file.get_value('user_info_' + str(i), 'deviceName')
-            port = write_file.get_value('user_info_' + str(i), 'port')
-            capabilities = {
-                "platformName": "Android",
-                "automationName": "UiAutomator2",
-                "deviceName": devices_name,
-                "noReset":True,
-                'newCommandTimeout': "2000",
-                "app": "/Users/function/Downloads/UIAutioPage/" + appname
-            }
+
+        print(i_num)
+        devices_name = write_file.get_value('user_info_' + str(i_num), 'deviceName')
+        port = write_file.get_value('user_info_' + str(i_num), 'port')
+        systemPort = write_file.get_value('user_info_' + str(i_num), 'systemPort')
 
 
+        capabilities = {
+            "platformName": "Android",
+            "automationName": "UiAutomator2",
+            "deviceName": devices_name,
+            "udid": devices_name,
+            "systemPort": systemPort[i_num],
+            "noReset":True,
+            'newCommandTimeout': "2000",
+            "app": '../Base/webDriver/' + appname
+        }
+        print('-------------------------------------------{0}---------------------------------------------------------------'.format(devices_name))
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
-
         return driver
 
-    def main_driver(self,name,app_name):
+    def main_driver(self,name,app_name,i_num):
         """
         driver 任意选择
         :param deviceName:
@@ -77,7 +84,7 @@ class BaDriver:
         if name == 'ios':
             res = self.get_ios_driver(app_name)
         elif name == 'android':
-            res = self.get_android_driver(app_name)
+            res = self.get_android_driver(app_name,i_num)
         else:
             res = "没有所存在的驱动，请重新尝试"
         return res

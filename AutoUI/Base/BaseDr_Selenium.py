@@ -37,9 +37,8 @@ class BaDriver:
         global port, devices_name
         write_file = WriteYamlCommand()
         Num = write_file.get_file_lines()
-        for i in range(1,Num):
-            devices_name = write_file.get_value('user_info_' + str(i), 'deviceName')
-            port = write_file.get_value('user_info_' + str(i), 'port')
+        devices_name = write_file.get_value('user_info_' + str(1), 'deviceName')
+        port = write_file.get_value('user_info_' + str(1), 'port')
         capabilities = {
             "platformName": "Android",
             "deviceName": devices_name,
