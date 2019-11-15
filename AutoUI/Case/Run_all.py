@@ -8,17 +8,10 @@
 
 总执行case
 """
-import multiprocessing
-import threading
-import time
-from concurrent.futures import ThreadPoolExecutor
 
-from AutoUI.Case.aibetCase_web import RunMethodWeb
-from AutoUI.Case.aibetCase_android import RunMethodAndroid
-from AutoUI.Case.aibetCase_ios import RunMethodIos
 from AutoUI.Config.setting import *
 from AutoUI.Util.ImageZip import make_zip
-from Case.aibetCase_H5 import RunMethodH5
+from Case.thread_case.thread_sport_case import SportRunAndroid
 from KeyWord.GetData import Getda
 from Util.SendEmail import SEmail
 from Util.SendHtml import message_send
@@ -26,19 +19,14 @@ from Util.SendHtml import message_send
 
 class RunAll:
     def __init__(self):
-        self.ios = RunMethodIos()
-        self.android = RunMethodAndroid()
-        self.web = RunMethodWeb()
-        self.h5 = RunMethodH5()
         self.sendemail = SEmail()
+        self.sport = SportRunAndroid()  # android sport
+        pass
 
-    def Run_main(self):
+    @staticmethod
+    def Run_main():
         pass_count = []
-        thread_android = self.android.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1,deviceName='681c4234')
-        # thread_web = self.web.run_method_web(driver_name='web',sheetN=2)
-        # thread_h5 = self.h5.run_method_H5(driver_name='H5',sheetN=3)
-        # thread_ios = self.ios.run_method_ios(driver_name='ios', sheetN=0, appname=app_name_ios_aibet)
-        # thread_android = self.android.run_method_adnroid(driver_name='android', appname=app_name_android_aibet, sheetN=1,deviceName='681c4234')
+        pass
 
 
         for sheeti in range(4):
@@ -47,7 +35,7 @@ class RunAll:
             for i in range(1, caselines):
                 is_run = data.get_is_run(i)
                 if is_run is True:
-                    result_test = data.get_is_result(i)  # 获取结果
+                    result_test = data.get_is_result(i)  # 获取结果 ----
                     print(result_test)
                     # 判断预期元素在当前页面是否存在
                     if result_test != '测试失败':
@@ -55,7 +43,7 @@ class RunAll:
                         pass_count.append(i)
 
         pass_n = len(pass_count)
-        fail_n = pass_n-thread_android
+        fail_n = pass_n
         # fail_n = thread_android + thread_ios + thread_web + thread_h5 - pass_n
         # fail_n = fail_n - pass_n
         print('----------------------------------------',fail_n)

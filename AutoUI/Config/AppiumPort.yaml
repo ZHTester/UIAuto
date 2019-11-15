@@ -3,12 +3,12 @@ user_info_0:
   deviceName: 681c4234
   port: '4720'
   systemPort:
-  - 8214
-  - 8215
+  - 8218
+  - 8219
 user_info_1:
   bp: '4921'
   deviceName: 973QAEVEB8CS8
   port: '4721'
   systemPort:
-  - 8214
-  - 8215
+  - 8218
+  - 8219

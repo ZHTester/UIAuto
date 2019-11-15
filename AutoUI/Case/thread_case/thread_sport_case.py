@@ -1,13 +1,13 @@
 import multiprocessing
-import threading
-import time
 
-from AutoUI.Case.demo0001 import RunMethodAll
+from AutoUI.Case.all_main_case import RunMethodAll
 from AutoUI.Config.setting import *
 from Util.AppiumServer import Serappium
 
-
-class RunAll:
+"""
+ android 多进程启动 相互对投注
+"""
+class SportRunAndroid:
     def __init__(self):
         self.all = RunMethodAll()
 
@@ -20,20 +20,22 @@ class RunAll:
         # self.all.run_method_All(driver_name='web',sheetN=2,Run_name='web',time_sleep=2)
         self.all.run_method_All(driver_name='android', sheetN=5, Run_name='android', i_num=0,appname=app_name_android_sport,time_sleep=2)
 
+    def Run_Thread(self):
+
+        Run_threads = [
+            multiprocessing.Process(target=self.Run_main01),
+            multiprocessing.Process(target=self.Run_main)
+        ]
+
+        for run_t in Run_threads:
+            run_t.start()
+
+
 
 if __name__ == '__main__':
     server = Serappium()
     server.main()  # 启动appium服务
-    c = RunAll()
+    c = SportRunAndroid()
+    c.Run_Thread()
 
-
-    threads = [
-        multiprocessing.Process(target=c.Run_main01),
-        multiprocessing.Process(target=c.Run_main),
-        # threading.Thread(target=c.Run_main01),
-        # threading.Thread(target=c.Run_main)
-               ]
-    for t in threads:
-        # 启动线程
-        t.start()
 

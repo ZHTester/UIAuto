@@ -53,11 +53,7 @@ class Serappium:
 
     def create_command_list(self, i):
         """
-        生成命令
-        no-reset参数，防止appium删除你的app
-        -p是设置appium服务的端口号
-        session-override 带上这个参数的话，每次脚本视图启动一个会话的时候都会覆盖上一个会话
-        "appium --no-reset -p " + str(appium_port_list[i]) + "--session-override"
+        android - 生成命令
         """
         # appium -p 4700 -bp 4701 -U iPhone Xr
         command_list = []
@@ -66,7 +62,7 @@ class Serappium:
         systemPort = self.create_port_list(8210)
         device_list = self.device_list
         command = "appium -p " + str(appium_port_list[i]) + " -bp " + str(bootstrap_port_list[i]) + " -U " + \
-                  device_list[i]
+                  device_list[i] + " --log ../log/Appium_Log.txt "
         command_list.append(command)
         self.write_file.write_data(i, device_list[i], str(bootstrap_port_list[i]), str(appium_port_list[i]),systemPort)
         print(command_list)
@@ -82,7 +78,7 @@ class Serappium:
 
     def kill_server(self):
         """
-        杀掉Appium的进程 清空内存
+        杀掉Appium的进程 清空内存  mac环境
         :return:
         """
         server_list = self.Terminal.Excute_terminal_result('ps -ef | grep node')

@@ -22,7 +22,7 @@ from Util.CheckPort import Cport
 class BaDriver:
     def get_ios_driver(self,app_name):
         """
-        ios Driver
+        Ios Driver
         :return:
         """
         global port, capabilities

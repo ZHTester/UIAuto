@@ -11,13 +11,12 @@ import datetime
 import time
 
 from AutoUI.KeyWord.GetData import Getda
-from AutoUI.Util.AppiumServer import Serappium
 from AutoUI.KeyWord.ActionMe import ActionMe
 from KeyWord.ActionMe_Selenium import ActionMeSelenium
-from AutoUI.Util.SendEmail import SEmail
-from AutoUI.Config.setting import *
 
-
+"""
+all case 执行业务逻辑代码
+"""
 class RunMethodAll:
     def __getattr__(self, item):
         return "excel 有空格请检查"
@@ -26,7 +25,6 @@ class RunMethodAll:
     def run_method_All(driver_name,sheetN,Run_name,i_num,appname=None,time_sleep=None):
         global action_method, action_method_selenium
         total_count = []  # 总数
-        pass_count = []
         data = Getda(sheetN)
         if Run_name == 'ios':
             action_method = ActionMe(driver_name, sheetN,i_num,appname)
@@ -41,6 +39,7 @@ class RunMethodAll:
         start = datetime.datetime.now()
         print("------------start time  used---------------:", start)
         for i in range(1, caselines):
+            data.write_value(i, "")  # 清空单元格
             is_run = data.get_is_run(i)
             if is_run is True:
                 handle_step = data.get_handle_step(i)  # 执行方法
@@ -48,10 +47,10 @@ class RunMethodAll:
                 # 自动化测试用例集执行
                 if Run_name == 'android':
                     excute_method = getattr(action_method, handle_step)
-                    print('--------------{0}--****************----执行到行数-------------------------'.format(sheetN), i)
+                    print('--------------{0}--*************移动端----执行到行数-------------------------'.format(sheetN), i)
                 else:
                     excute_method = getattr(action_method_selenium, handle_step)
-                    print('--------------{0}--*******8888888*********----执行到行数-------------------------'.format(sheetN), i)
+                    print('--------------{0}--*******selenium部分*********----执行到行数-------------------------'.format(sheetN), i)
 
                 time.sleep(time_sleep)
                 excute_method(i, handle_value)
@@ -60,14 +59,7 @@ class RunMethodAll:
                     action_method.ScreenShot(i, handle_value, file_s='../Image/'+Run_name+'/执行图片/')
                 else:
                     action_method_selenium.ScreenShot(i, handle_value, file_s='../Image/'+Run_name+'/执行图片/')
-
                 total_count.append(i)
-
-                result_test = data.get_is_result(i)  # 获取结果
-                # # 判断预期元素在当前页面是否存在
-                # if result_test != '测试失败':
-                #     data.write_value(i, "测试通过")
-                #     pass_count.append(i)
 
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
