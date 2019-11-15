@@ -26,7 +26,7 @@ OUT_FILENAME = 'AutoCase.xls'
 # app名称路径
 app_name_ios_aibet = "aibet.app"
 app_name_android_aibet = "ballbet.apk"
-app_name_android_sport = "Sport_2.3.0_release.apk"
+app_name_android_sport = "Sport_2.3.1_release.apk"
 
 
 

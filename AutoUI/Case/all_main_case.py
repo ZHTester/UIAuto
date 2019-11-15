@@ -13,6 +13,8 @@ import time
 from AutoUI.KeyWord.GetData import Getda
 from AutoUI.KeyWord.ActionMe import ActionMe
 from KeyWord.ActionMe_Selenium import ActionMeSelenium
+from Util.AppiumServer import Serappium
+from Config.setting import *
 
 """
 all case 执行业务逻辑代码
@@ -22,7 +24,7 @@ class RunMethodAll:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_All(driver_name,sheetN,Run_name,i_num,appname=None,time_sleep=None):
+    def run_method_All(driver_name,sheetN,Run_name,i_num=None,appname=None,time_sleep=None):
         global action_method, action_method_selenium
         total_count = []  # 总数
         data = Getda(sheetN)
@@ -31,7 +33,7 @@ class RunMethodAll:
         elif Run_name == 'android':
             action_method = ActionMe(driver_name, sheetN,i_num,appname)
         elif Run_name == 'H5':
-            action_method_selenium = ActionMeSelenium(driver_name, sheetN)
+            action_method_selenium = ActionMeSelenium(driver_name, sheetN,i_num)
         elif Run_name == 'web':
             action_method_selenium = ActionMeSelenium(driver_name, sheetN)
 
@@ -50,7 +52,6 @@ class RunMethodAll:
                     print('--------------{0}--*************移动端----执行到行数-------------------------'.format(sheetN), i)
                 else:
                     excute_method = getattr(action_method_selenium, handle_step)
-                    print('--------------{0}--*******selenium部分*********----执行到行数-------------------------'.format(sheetN), i)
 
                 time.sleep(time_sleep)
                 excute_method(i, handle_value)
@@ -68,10 +69,14 @@ class RunMethodAll:
         return total
 
 if __name__ == "__main__":
+    server = Serappium()
+    server.main()  # 启动appium服务
+
     run = RunMethodAll()
-    run.run_method_All(driver_name='android',  sheetN=1, Run_name='android',appname="ballbet.apk")
-    run.run_method_All(driver_name='web',sheetN=2,Run_name='web')
-    # run.run_method_All(driver_name='H5', sheetN=3,Run_name='H5')
+    # run.run_method_All(driver_name='android',  sheetN=1, Run_name='android',appname="ballbet.apk",i_num=0)
+    # run.run_method_All(driver_name='web',sheetN=2,Run_name='web')
+    # run.run_method_All(driver_name='H5', sheetN=3,Run_name='H5',i_num=1,time_sleep=2)
+    run.run_method_All(driver_name='android', sheetN=1, Run_name='android',i_num=0, appname=app_name_android_aibet, time_sleep=2)
 
 
 

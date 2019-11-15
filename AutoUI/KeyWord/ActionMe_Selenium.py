@@ -19,11 +19,11 @@ from Util.OtherFunction import creatFile
 from selenium.webdriver.common.action_chains import ActionChains
 
 class ActionMeSelenium:
-    def __init__(self,driver_name,sheetN,file_path=None):
+    def __init__(self,driver_name,sheetN,i_num=None):
         Basedriver = BaDriver()
-        self.driver = Basedriver.main_driver(driver_name)
-        self.agetbylo = GetByLo(self.driver,sheetN,file_path)
-        self.agetdata = Getda(sheetN,file_path)
+        self.driver = Basedriver.main_driver(driver_name,i_num)
+        self.agetbylo = GetByLo(self.driver,sheetN)
+        self.agetdata = Getda(sheetN)
 
     def GetElement(self, *args):
         """

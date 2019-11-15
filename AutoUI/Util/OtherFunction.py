@@ -13,6 +13,7 @@ import zipfile
 from xlutils.copy import copy
 import xlrd
 from AutoUI.Util.OperaExcel import OpExcel
+from KeyWord.GetData import Getda
 
 
 def pass_fail_number(pass_list,fail_list):
@@ -90,6 +91,32 @@ def creatFile(path):
         return path
 
 
+def pass_flied_statistics(start_num,end_num):
+        """
+        失败数  成功数 总数统计
+        :return:
+        """
+        pass_count = []
+        totle_count = []
+        for sheeti in range(start_num,end_num):
+            data = Getda(sheeti)
+            caselines = data.get_case_lines()
+            for i in range(1, caselines):
+                is_run = data.get_is_run(i)
+                totle_count.append(i)
+                if is_run is True:
+                    result_test = data.get_is_result(i)  # 获取结果 ----
+                    print('===============---------===============',result_test)
+                    # 判断预期元素在当前页面是否存在
+                    if result_test != '测试失败':
+                        data.write_value(i, "测试通过")
+                        pass_count.append(i)
+
+        pass_count = len(pass_count)
+        totle_count = len(totle_count)
+        file_count = totle_count - pass_count
+        print('====---成功数-{0}---失败数-{1}---总数-{2}'.format(pass_count,file_count,totle_count))
+        return pass_count,file_count,totle_count,file_count
 def  wr():
     data  = OpExcel(0,file_path=r'../Config/test.xls')
     read_data = xlrd.open_workbook(r'../Config/test.xls')

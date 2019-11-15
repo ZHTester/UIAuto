@@ -23,10 +23,10 @@ from AutoUI.Util.OtherFunction import creatFile
 
 
 class ActionMe:
-    def  __init__(self,driver_name,sheetN,i_num,appname=None,file_path=None):
+    def  __init__(self,driver_name,sheetN,i_num,appname=None):
         Basedriver = BaDriver()
         self.driver = Basedriver.main_driver(driver_name,appname,i_num)
-        self.agetbylo = GetByLo(self.driver,sheetN,file_path)
+        self.agetbylo = GetByLo(self.driver,sheetN)
         self.agetdata = Getda(sheetN)
 
     ##############################体育部分从这开始#######################################

@@ -29,7 +29,7 @@ class BaDriver:
         return driver
 
     @staticmethod
-    def get_web_H5():
+    def get_web_H5(i_num):
         """
         获取浏览器 H5 Driver
         :return:
@@ -37,13 +37,16 @@ class BaDriver:
         global port, devices_name
         write_file = WriteYamlCommand()
         Num = write_file.get_file_lines()
-        devices_name = write_file.get_value('user_info_' + str(1), 'deviceName')
-        port = write_file.get_value('user_info_' + str(1), 'port')
+        devices_name = write_file.get_value('user_info_' + str(i_num), 'deviceName')
+        port = write_file.get_value('user_info_' + str(i_num), 'port')
+        systemPort = write_file.get_value('user_info_' + str(i_num), 'systemPort')
         capabilities = {
             "platformName": "Android",
             "deviceName": devices_name,
             "platformVersion": "9",
             'noReset': 'true',
+            "udid": devices_name,
+            "systemPort": systemPort[i_num],
             "browserName": "Chrome",
             "unicodeKeyboard": "true",
             "resetKeyboard": "true",
@@ -55,9 +58,10 @@ class BaDriver:
         return driver
 
 
-    def main_driver(self,name):
+    def main_driver(self,name,i_num = None):
         """
         driver 任意选择
+        :param i_num:
         :param name:
         :return:
         """
@@ -65,7 +69,7 @@ class BaDriver:
             res = self.get_web_driver()
             return res
         if name == 'H5':
-            res = self.get_web_H5()
+            res = self.get_web_H5(i_num)
             return res
         else:
             res = "没有所存在的驱动，请重新尝试"
