@@ -18,7 +18,7 @@ class GetByLo:
     def __init__(self, driver, sheetN, file_path=None):
         self.driver = driver
         self.sheetN = sheetN
-        self.data = Getda(sheetN,file_path)
+        self.data = Getda(sheetN)
 
 
     def ScreenShot(self, row, file_s=None):

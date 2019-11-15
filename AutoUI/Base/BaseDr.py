@@ -37,7 +37,6 @@ class BaDriver:
             "platformVersion": "12.4",
             "deviceName": "iPhone Xʀ",
             "app": '../Base/webDriver/' + app_name
-
             }
 
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
@@ -52,12 +51,9 @@ class BaDriver:
         """
         global port, capabilities, devices_name
         write_file = WriteYamlCommand()
-
-        print(i_num)
         devices_name = write_file.get_value('user_info_' + str(i_num), 'deviceName')
         port = write_file.get_value('user_info_' + str(i_num), 'port')
         systemPort = write_file.get_value('user_info_' + str(i_num), 'systemPort')
-
 
         capabilities = {
             "platformName": "Android",
@@ -69,7 +65,6 @@ class BaDriver:
             'newCommandTimeout': "2000",
             "app": '../Base/webDriver/' + appname
         }
-        print('-------------------------------------------{0}---------------------------------------------------------------'.format(devices_name))
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)
         return driver
 
