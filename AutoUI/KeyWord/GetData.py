@@ -11,8 +11,8 @@
 from AutoUI.Util.OperaExcel import OpExcel
 
 class Getda:
-    def __init__(self,sheetN,file_path=None):
-        self.opera_excel = OpExcel(sheetN,file_path=file_path)
+    def __init__(self,sheetN):
+        self.opera_excel = OpExcel(sheetN)
         self.sheetN = sheetN
 
 

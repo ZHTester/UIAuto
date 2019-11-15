@@ -23,19 +23,19 @@ class RunMethodAll:
         return "excel 有空格请检查"
 
     @staticmethod
-    def run_method_All(driver_name,sheetN,Run_name,i_num,appname=None,time_sleep=None,file_path=None):
+    def run_method_All(driver_name,sheetN,Run_name,i_num,appname=None,time_sleep=None):
         global action_method, action_method_selenium
         total_count = []  # 总数
         pass_count = []
-        data = Getda(sheetN,file_path)
+        data = Getda(sheetN)
         if Run_name == 'ios':
-            action_method = ActionMe(driver_name, sheetN,i_num,appname,file_path)
+            action_method = ActionMe(driver_name, sheetN,i_num,appname)
         elif Run_name == 'android':
-            action_method = ActionMe(driver_name, sheetN,i_num,appname,file_path)
+            action_method = ActionMe(driver_name, sheetN,i_num,appname)
         elif Run_name == 'H5':
-            action_method_selenium = ActionMeSelenium(driver_name, sheetN,file_path)
+            action_method_selenium = ActionMeSelenium(driver_name, sheetN)
         elif Run_name == 'web':
-            action_method_selenium = ActionMeSelenium(driver_name, sheetN,file_path)
+            action_method_selenium = ActionMeSelenium(driver_name, sheetN)
 
         caselines = data.get_case_lines()
         start = datetime.datetime.now()
