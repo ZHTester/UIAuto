@@ -1,14 +1,14 @@
-user_info_0:
-  bp: '4920'
-  deviceName: 681c4234
-  port: '4720'
-  systemPort:
-  - 8250
-  - 8251
 user_info_1:
   bp: '4921'
   deviceName: 973QAEVEB8CS8
   port: '4721'
   systemPort:
-  - 8250
-  - 8251
+  - 8219
+  - 8220
+user_info_0:
+  bp: '4920'
+  deviceName: 681c4234
+  port: '4720'
+  systemPort:
+  - 8219
+  - 8220

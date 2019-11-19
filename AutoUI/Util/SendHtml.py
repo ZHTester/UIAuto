@@ -1,10 +1,13 @@
 import datetime
 
-def message_send(total,pass_n,falied_n):
+def message_send(total,pass_n,falied_n,Stotal,Spass_n,Sfalied_n):
     """
-    :param total: 用例总数
-    :param pass_n: 用例通过总数
-    :param falied_n: 用例失败总数
+    :param Sfalied_n: 体育项目用例失败总数
+    :param Spass_n: 体育项目用例通过总数
+    :param Stotal: 体育项目用例总数
+    :param total: BB项目用例总数
+    :param pass_n: BB项目用例通过总数
+    :param falied_n: BB项目用例失败总数
     :return:
     """
     mall_send = """
@@ -38,14 +41,21 @@ def message_send(total,pass_n,falied_n):
                 </tr>
                 
         <tr class='failClass warning'>
-            <td >BB项目自动化测试</td>
+            <td >BB项目UI自动化测试</td>
             <td>"""+str(total)+"""</td>
             <td>"""+str(pass_n)+"""</td>
             <td>"""+str(falied_n)+"""</td>
         </tr>
+        
+        <tr class='failClass warning'>
+            <td >体育项目UI自动化测试</td>
+            <td>"""+str(Stotal)+"""</td>
+            <td>"""+str(Spass_n)+"""</td>
+            <td>"""+str(Sfalied_n)+"""</td>
+        </tr>
             </table>
         <!-- 执行模块 -->
-        <p class='attribute'><strong>测试详情</p>    
+        <p class='attribute'><strong>BB项目-测试详情</p>    
             <table id='result_table' class="table table-condensed table-bordered table-hover">
                 <colgroup>
                     <col align='left' />
@@ -93,6 +103,7 @@ def message_send(total,pass_n,falied_n):
                     <th width="15%">8</th>
                     <th width="15%">8</th>
                 </tr>  
+        <p class='attribute'><strong>备注:附件为测试用例详情报告与错误截图</p>
         </body>
         </html>
  

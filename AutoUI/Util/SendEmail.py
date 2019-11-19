@@ -44,7 +44,7 @@ class SEmail:
 
         # 构造邮件主题内容
         text = send_message
-        body = MIMEText(text,'plain','utf-8')
+        body = MIMEText(text,'html','utf-8')
         message.attach(body)
 
         # 上传文件附件 测试case用例集合

@@ -103,10 +103,9 @@ def pass_flied_statistics(start_num,end_num):
             caselines = data.get_case_lines()
             for i in range(1, caselines):
                 is_run = data.get_is_run(i)
-                totle_count.append(i)
                 if is_run is True:
+                    totle_count.append(i)
                     result_test = data.get_is_result(i)  # 获取结果 ----
-                    print('===============---------===============',result_test)
                     # 判断预期元素在当前页面是否存在
                     if result_test != '测试失败':
                         data.write_value(i, "测试通过")
@@ -115,8 +114,11 @@ def pass_flied_statistics(start_num,end_num):
         pass_count = len(pass_count)
         totle_count = len(totle_count)
         file_count = totle_count - pass_count
+        pass_result = "%.2f%%" % (pass_count / totle_count * 100)
+        fail_result = "%.2f%%" % (file_count / totle_count * 100)
+
         print('====---成功数-{0}---失败数-{1}---总数-{2}'.format(pass_count,file_count,totle_count))
-        return pass_count,file_count,totle_count,file_count
+        return pass_count,file_count,totle_count,pass_result,fail_result
 def  wr():
     data  = OpExcel(0,file_path=r'../Config/test.xls')
     read_data = xlrd.open_workbook(r'../Config/test.xls')

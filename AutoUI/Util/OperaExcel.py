@@ -65,7 +65,7 @@ class OpExcel:
         :param value: 写入值
         :return:
         """
-        read_data = xlrd.open_workbook(self.file_path,formatting_info=True)
+        read_data = xlrd.open_workbook(self.file_path,'r+b',formatting_info=True)
         write_data = copy(read_data)
         sheet_data = write_data.get_sheet(sheetN)
         sheet_data.write(row, 5, value)

@@ -62,7 +62,7 @@ class BaDriver:
             "udid": devices_name,
             "systemPort": systemPort[i_num],
             "noReset":True,
-            'newCommandTimeout': "2000",
+            'newCommandTimeout': "10",
             "app": '../Base/webDriver/' + appname
         }
         driver = webdriver.Remote("http://127.0.0.1:"+port+"/wd/hub", capabilities)

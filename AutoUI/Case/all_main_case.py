@@ -40,9 +40,11 @@ class RunMethodAll:
         caselines = data.get_case_lines()
         start = datetime.datetime.now()
         print("------------start time  used---------------:", start)
+        print('---------------------------------------------------------------------------1234567----------------')
         for i in range(1, caselines):
             data.write_value(i, "")  # 清空单元格
             is_run = data.get_is_run(i)
+
             if is_run is True:
                 handle_step = data.get_handle_step(i)  # 执行方法
                 handle_value = data.get_handle_value(i)  # 操作值
@@ -64,7 +66,8 @@ class RunMethodAll:
 
         end = datetime.datetime.now()
         print("------------Time used---------------:", end - start)
-
+        server1 = Serappium()
+        server1.kill_server()
         total = len(total_count)
         return total
 
@@ -73,9 +76,6 @@ if __name__ == "__main__":
     server.main()  # 启动appium服务
 
     run = RunMethodAll()
-    # run.run_method_All(driver_name='android',  sheetN=1, Run_name='android',appname="ballbet.apk",i_num=0)
-    # run.run_method_All(driver_name='web',sheetN=2,Run_name='web')
-    # run.run_method_All(driver_name='H5', sheetN=3,Run_name='H5',i_num=1,time_sleep=2)
     run.run_method_All(driver_name='android', sheetN=1, Run_name='android',i_num=0, appname=app_name_android_aibet, time_sleep=2)
 
 
