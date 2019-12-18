@@ -56,7 +56,7 @@ class RunMethodAll:
                     excute_method = getattr(action_method_selenium, handle_step)
 
                 time.sleep(time_sleep)
-                excute_method(i, handle_value)
+
 
                 if Run_name == 'android':
                     action_method.ScreenShot(i, handle_value, file_s='../Image/'+Run_name+'/执行图片/')

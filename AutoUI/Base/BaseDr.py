@@ -61,7 +61,7 @@ class BaDriver:
             "deviceName": devices_name,
             "udid": devices_name,
             "systemPort": systemPort[i_num],
-            "noReset":True,
+            # "noReset":True,
             'newCommandTimeout': "10",
             "app": '../Base/webDriver/' + appname
         }

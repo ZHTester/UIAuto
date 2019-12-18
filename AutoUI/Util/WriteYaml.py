@@ -74,7 +74,7 @@ class WriteYamlCommand:
 
 if __name__ == "__main__":
     w = WriteYamlCommand()
-    a = w.get_file_lines()
+    a = w.get_value('user_info_' + str(1), 'port')
     print(a)
 
 

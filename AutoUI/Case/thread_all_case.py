@@ -64,6 +64,7 @@ class AllThread:
         server = Serappium()
         server.main()  # 启动appium服务
 
+
         Run_threads = [
             multiprocessing.Process(target=self.Run_Sport_Android1),
             multiprocessing.Process(target=self.Run_Sport_Android2)
