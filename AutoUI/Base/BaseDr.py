@@ -17,7 +17,20 @@ from appium import webdriver
 from AutoUI.Util.WriteYaml import WriteYamlCommand
 from Util.AppiumServer import Serappium
 from Util.CheckPort import Cport
-
+"""
+{
+  "platformName": "iOS",
+  "platformVersion": "12.1.3",
+  "deviceName": "windy",
+  "automationName": "XCUiTest",
+  "udid": "97ba21de6087bf9d34f7514df5185d86780210e5",
+  "xcodeSigningId": "iPhone Develope",
+  "updatedWDABundleId": "com.function.wda.lib",
+  "app": "/Users/function/Downloads/UIAutioPage/BBSport.ipa",
+  "xcodeOrgId": "33KMWQ75ZV",
+  "bundleid": "com.bb1.sportApp0"
+}
+"""
 
 class BaDriver:
     def get_ios_driver(self,app_name):
@@ -61,7 +74,7 @@ class BaDriver:
             "deviceName": devices_name,
             "udid": devices_name,
             "systemPort": systemPort[i_num],
-            # "noReset":True,
+            "noReset":True,
             'newCommandTimeout': "10",
             "app": '../Base/webDriver/' + appname
         }
