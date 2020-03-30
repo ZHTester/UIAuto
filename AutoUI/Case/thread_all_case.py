@@ -31,14 +31,14 @@ class AllThread:
         体育对投注 android1
         :return:
         """
-        self.all.run_method_All(driver_name='android', sheetN=4, Run_name='android',i_num=1, appname=app_name_android_sport, time_sleep=2)
+        self.all.run_method_All(driver_name='android', sheetN=4, Run_name='android',i_num=0, appname=app_name_android_sport, time_sleep=2)
 
     def Run_Sport_Android2(self):
         """
         体育对投注 android2
         :return:
         """
-        self.all.run_method_All(driver_name='android', sheetN=5, Run_name='android', i_num=0,appname=app_name_android_sport,time_sleep=2)
+        self.all.run_method_All(driver_name='android', sheetN=5, Run_name='android', i_num=1,appname=app_name_android_sport,time_sleep=2)
 
     def Run_Thread_BB_H5Android(self):
         """
@@ -66,8 +66,8 @@ class AllThread:
 
 
         Run_threads = [
-            multiprocessing.Process(target=self.Run_Sport_Android1),
-            multiprocessing.Process(target=self.Run_Sport_Android2)
+            multiprocessing.Process(target=self.Run_BB_Android),
+            # multiprocessing.Process(target=self.Run_Sport_Android2)
         ]
 
         for run_t in Run_threads:
@@ -86,7 +86,9 @@ class AllThread:
 
 if __name__ == '__main__':
     c = AllThread()
-    c.run_All()
+    server = Serappium()
+    server.main()  # 启动appium服务
+    c.Run_Thread_Sport_Android()
 
 
 
